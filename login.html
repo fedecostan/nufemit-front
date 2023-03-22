@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nufemit</title>
+    <link rel="icon" href="images/icon.png">
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/font-awesome.min.css">
+</head>
+
+<body style="background-color: rgb(2, 21, 119);">
+
+    <div class="container rounded-4 p-3 mt-3" style="background-color: rgba(255, 255, 255, 0.9); max-width: 500px;">
+        <img class="img-fluid rounded-4 mb-3" src="images/logo.png" alt="Nufemit">
+        <p class="text-start text-danger" id="loginErrorMsg">Email or password incorrect. Try again.</p>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+            <label for="emailInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            <label for="passwordInput">Password</label>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg w-100 mb-3" id="loginBtn">Login</button>
+        <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#recoverPassword">
+            <b>Forgot password?</b>
+        </button>
+        <div class="modal fade" id="recoverPassword" tabindex="-1" aria-labelledby="recoverPasswordLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.9); max-width: 400px;">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="recoverPasswordLabel">Recover Password</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-start">Enter your email to recover your password.</p>
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="recoverEmailInput" placeholder="name@example.com">
+                            <label for="emailInput">Email address</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="recoverPasswordBtn">Recover Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 align-items-center">
+            <div class="col align-middle">
+                <p class="fw-bold mt-2">Don't have an account?</p>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-lg w-100" id="signUpBtn">Create new</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/loginController.js"></script>
+</body>
+
+</html>
