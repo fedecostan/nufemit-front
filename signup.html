@@ -11,6 +11,38 @@
 </head>
 
 <body style="background-color: rgb(2, 21, 119);">
+    <div class="container rounded-4 p-3 mt-3" style="background-color: rgba(255, 255, 255, 0.9); max-width: 500px;">
+        <h1 class="text-center mb-3">Create your account</h1>
+        <div class="alert alert-danger" role="alert" id="alert"></div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+            <label for="emailInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            <label for="passwordInput">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nameInput" placeholder="Name">
+            <label for="nameInput">Name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="lastNameInput" placeholder="Last Name">
+            <label for="lastNameInput">Last Name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="birthdateInput" placeholder="Birthdate">
+            <label for="birthdateInput">Birthdate</label>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <button type="button" class="btn btn-primary btn-lg w-100 mb-3" id="signupBtn">Create</button>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-danger btn-lg w-100 mb-3" id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
     <script src="lib/bootstrap.bundle.min.js"></script>
     <script src="js/signupController.js"></script>
 </body>
