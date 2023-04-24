@@ -12,7 +12,7 @@
 
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: rgba(255, 255, 255); max-width: 1000px; min-height: 100vh;">
-        <div class="sticky-top pb-2 pt-3" style="background-color: rgba(255, 255, 255);">
+        <div class="sticky-top pt-3" style="background-color: rgba(255, 255, 255);">
             <h1 class="text-center mb-3">Activities</h1>
             <div class="input-group mb-3 input-group-lg">
                 <input type="text" class="form-control" placeholder="Search" id="searchInput">
@@ -20,29 +20,31 @@
                 <button class="btn btn-dark" type="button" data-bs-toggle="modal"
                     data-bs-target="#filtersModal"><i class="fa fa-filter"></i></button>
             </div>
+            <hr>
         </div>
-        <div id="activityList" style="margin-bottom: 90px;"></div>
-        <div class="container text-center pt-3 pb-2 fixed-bottom"
+        <div id="activityList" style="padding-bottom: 74px;"></div>
+        <div class="container text-center pt-2 pb-2 fixed-bottom"
             style="background-color: rgba(255, 255, 255); max-width: 1000px;">
             <div class="row">
-                <div class="col p-1">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen">
                         <i class="fa fa-home fa-2x"></i><br>Home</button>
                 </div>
-                <div class="col p-1">
-                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0"
+                        id="activitySearchScreen">
                         <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
                 </div>
-                <div class="col p-1">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="messagesScreen">
                         <i class="fa fa-comment fa-2x"></i><br>Messages</button>
                 </div>
-                <div class="col p-1">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="profileScreen">
                         <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
                 </div>
-                <div class="col p-1">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
                         <i class="fa fa-gear fa-2x"></i><br>Settings</button>
                 </div>
             </div>
@@ -98,7 +100,8 @@
         </div>
     </div>
     <script src="lib/bootstrap.bundle.min.js"></script>
-    <script src="js/activityController.js"></script>
+    <script src="js/activitySearchController.js"></script>
+    <script src="js/navbarController.js"></script>
 </body>
 
 </html>
