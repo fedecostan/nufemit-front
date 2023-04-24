@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nufemit</title>
+    <link rel="icon" href="images/icon.png">
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body style="background-color: rgb(2, 21, 119);">
+    <div class="container px-3" style="background-color: rgba(255, 255, 255); max-width: 1000px; min-height: 100vh;">
+        <div class="sticky-top pb-2 pt-3" style="background-color: rgba(255, 255, 255);">
+            <h1 class="text-center mb-3">Activities</h1>
+            <div class="input-group mb-3 input-group-lg">
+                <input type="text" class="form-control" placeholder="Search" id="searchInput">
+                <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal"
+                    data-bs-target="#filtersModal"><i class="fa fa-filter"></i></button>
+            </div>
+        </div>
+        <div id="activityList" style="margin-bottom: 90px;"></div>
+        <div class="container text-center pt-3 pb-2 fixed-bottom"
+            style="background-color: rgba(255, 255, 255); max-width: 1000px;">
+            <div class="row">
+                <div class="col p-1">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                        <i class="fa fa-home fa-2x"></i><br>Home</button>
+                </div>
+                <div class="col p-1">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0">
+                        <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
+                </div>
+                <div class="col p-1">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                        <i class="fa fa-comment fa-2x"></i><br>Messages</button>
+                </div>
+                <div class="col p-1">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                        <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
+                </div>
+                <div class="col p-1">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0">
+                        <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="filtersModalLabel">Filters</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating my-2">
+                        <select class="form-select" id="cityFilter">
+                            <option selected>All</option>
+                            <option value="madrid">Madrid</option>
+                            <option value="barcelona">Barcelona</option>
+                            <option value="valencia">Valencia</option>
+                        </select>
+                        <label for="floatingSelect">City</label>
+                    </div>
+                    <div class="form-floating my-2">
+                        <select class="form-select" id="categoryFilter">
+                            <option selected>All</option>
+                            <option value="madrid">Sports</option>
+                            <option value="barcelona">Meals</option>
+                            <option value="valencia">Games</option>
+                        </select>
+                        <label for="floatingSelect">Category</label>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Min price">
+                                <span class="input-group-text">€</span>
+                            </div>
+                        </div>
+                        -
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Max price">
+                                <span class="input-group-text">€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Apply filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/activityController.js"></script>
+</body>
+
+</html>
