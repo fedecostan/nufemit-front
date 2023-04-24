@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nufemit</title>
+    <link rel="icon" href="images/icon.png">
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body style="background-color: rgb(2, 21, 119);">
+    <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
+        <div class="sticky-top pt-3" style="background-color: white;">
+            <h1 class="text-center mb-3">Profile</h1>
+            <hr>
+        </div>
+        <div class="text-center">
+            <img src="images/logo.png" class="rounded-circle object-fit-cover w-100" style="height: 150px; width: 150px; max-height: 150px; max-width: 150px;">
+            <h2 class="my-3">Federico Costantino</h2>
+            <h5 class="text-secondary">Madrid - Spain</h5>
+            <div class="container-sm text-warning fs-2">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <button type="button" class="btn btn-dark rounded-pill mt-3" data-bs-toggle="modal"
+                data-bs-target="#editUserModal">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <hr>
+            <h3 class="mt-3">Recent activities</h3>                
+        </div>
+        <div id="activityList" class="overflow-y-auto" style="padding-bottom: 74px;"></div>
+        <div class="container text-center pt-2 pb-2 fixed-bottom"
+            style="background-color: whitesmoke; max-width: 1000px;">
+            <div class="row">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen">
+                        <i class="fa fa-home fa-2x"></i><br>Home</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0"
+                        id="activitySearchScreen">
+                        <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="messagesScreen">
+                        <i class="fa fa-comment fa-2x"></i><br>Messages</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0" id="profileScreen">
+                        <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
+                        <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editUserModalLabel">Filters</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ....
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Confirm changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/profileController.js"></script>
+    <script src="js/navbarController.js"></script>
+</body>
+
+</html>

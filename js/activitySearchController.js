@@ -17,7 +17,7 @@ const activityHtml =
     '<div class="col-6">'+
         '<h5>${title}</h5>'+
         '<h6 class="text-body-secondary">${place}</h6>'+
-        '<p>${description}</p>'+
+        '<p class="m-0">${description}</p>'+
     '</div>'+
     '<div class="col-3 text-center">'+
         '<button type="button" class="btn btn-success w-100 mt-2">Join</button>'+
