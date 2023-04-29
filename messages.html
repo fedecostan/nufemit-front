@@ -16,95 +16,24 @@
             <h1 class="text-center mb-3">Messages</h1>
             <hr class="mb-0">
         </div>
-        <div class="container-fluid m-0 px-0" style="padding-bottom: 74px;">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#activityHistorySettings">
-                <h4 class="py-2 my-0">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-history"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            Activity history
-                        </div>
-                    </div>
-                </h4>
-            </button>
-            <hr class="my-0">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample">
-                <h4 class="py-2 my-0">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            My reviews
-                        </div>
-                    </div>
-                </h4>
-            </button>
-            <hr class="my-0">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample">
-                <h4 class="py-2 my-0">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-comments"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            Contact and help
-                        </div>
-                    </div>
-                </h4>
-            </button>
-            <hr class="my-0">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample">
-                <h4 class="py-2 my-0">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-lock"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            Privacy settings
-                        </div>
-                    </div>
-                </h4>
-            </button>
-            <hr class="my-0">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample">
-                <h4 class="py-2 my-0">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-info"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            Terms of use
-                        </div>
-                    </div>
-                </h4>
-            </button>
-            <hr class="my-0">
-            <button class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample">
-                <h4 class="py-2 my-0 text-danger fw-bold">
-                    <div class="row">
-                        <div class="col-1 text-center">
-                            <i class="fa fa-sign-out"></i>
-                        </div>
-                        <div class="col-11 text-start">
-                            Sign out
-                        </div>
-                    </div>
-                </h4>
-            </button>
-        </div>
-        <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="activityHistorySettings">
-            <div class="offcanvas-body p-0">
+        <div id="allMessages" class="container-fluid m-0 px-0" style="padding-bottom: 74px;"></div>
+        <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="messageScreen">
+            <div class="offcanvas-body p-0" id="messageScreenBody">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
-                    <h1 class="mb-3"><i class="fa fa-chevron-left me-4"
-                            data-bs-dismiss="offcanvas"></i>Activity
-                        history
+                    <h1 class="mb-3"><i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas"></i>Lionel Messi
                     </h1>
                     <hr class="mb-0">
                 </div>
-                <div id="activityList" style="max-width: 600px; margin: 0 auto;"></div>
+                <div id="userMessages" style="max-width: 1000px; margin: 0 auto;" data-bs-spy="scroll"></div>
+            </div>
+            <div class="sticky-bottom pt-3 px-1" style="background-color: white;">
+                <div class="container text-center" style="max-width: 1000px;">
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control border border-dark border-2" placeholder="Message">
+                        <button class="btn btn-dark border border-dark border-2" type="button" id="button-addon2"><i
+                                class="fa fa-paper-plane"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
@@ -119,11 +48,12 @@
                         <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
                 </div>
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0 position-relative" id="messagesScreen">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0 position-relative"
+                        id="messagesScreen">
                         <i class="fa fa-comment fa-2x"></i><br>Messages
                         <span class="position-absolute top-0 start-50 badge bg-danger">
-                            99+
-                          </span>
+                            2+
+                        </span>
                     </button>
                 </div>
                 <div class="col p-0">
@@ -138,7 +68,7 @@
         </div>
     </div>
     <script src="lib/bootstrap.bundle.min.js"></script>
-    <script src="js/settingsController.js"></script>
+    <script src="js/messagesController.js"></script>
     <script src="js/navbarController.js"></script>
 </body>
 
