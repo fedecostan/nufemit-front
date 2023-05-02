@@ -15,7 +15,8 @@
         <div class="sticky-top pt-3" style="background-color: white;">
             <h1 class="text-center mb-3">Activities</h1>
             <div class="input-group mb-3 input-group-lg">
-                <input type="text" class="form-control border border-1 border-dark" placeholder="Search" id="searchInput">
+                <input type="text" class="form-control border border-1 border-dark" placeholder="Search"
+                    id="searchInput">
                 <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn">Search</button>
                 <button class="btn btn-dark border border-1 border-dark" type="button" data-bs-toggle="modal"
                     data-bs-target="#filtersModal"><i class="fa fa-filter"></i></button>
@@ -23,24 +24,82 @@
             <hr class="mb-0">
         </div>
         <div id="activityList" style="padding-bottom: 74px;"></div>
-        <div class="container text-center py-2 px-3 fixed-bottom"
-            style="background-color: white; max-width: 1000px;">
+        <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="activityScreen">
+            <div class="offcanvas-body p-0" id="messageScreenBody">
+                <div class="sticky-top pt-3 px-3" style="background-color: white;">
+                    <h1 class="mb-3" id="activityTitle"></h1>
+                    <hr class="mb-0">
+                </div>
+                <div class="text-center" style="max-width: 700px; margin: 0 auto;">
+                    <div class="container">
+                        <img class="img rounded-3 my-3 object-fit-cover w-100" src="images/default-activity.jpg"
+                            style="max-height: 200px;">
+                    </div>
+                    <div class="container text-start">
+                        <div class="mx-2 px-2">
+                            <h3 class="fw-bold bg-white pt-1">Description
+                                <hr class="my-1">
+                            </h3>
+                            <h5 class="fw-normal" id="description" style="display: inline;"></h5>
+                            <a class="fw-normal text-secondary" onclick="toggleDescription()" id="descriptionBtn"
+                                style="display: inline; cursor: pointer;"></a>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="mx-2 mt-2 p-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group input-group-lg my-2">
+                                        <span class="input-group-text bg-dark-subtle">Place</span>
+                                        <input id="place" type="text" class="form-control bg-white fs-6" disabled
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="col-5 pe-1">
+                                    <div class="input-group input-group my-2">
+                                        <span class="input-group-text bg-dark-subtle"><i
+                                                class="fa fa-clock-o"></i></span>
+                                        <input id="time" type="text" class="form-control bg-white fs-6" disabled
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="col-7 ps-1">
+                                    <div class="input-group input-group my-2">
+                                        <span class="input-group-text bg-dark-subtle">Price</span>
+                                        <input id="price" type="text" class="form-control bg-white fs-6 text-end"
+                                            disabled readonly>
+                                        <span class="input-group-text bg-dark-subtle">€</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-2">
+                        Attendees<h5 class="fw-bold" id="registered"></h5>
+                        <button type="button" class="btn btn-lg btn-dark mt-1" data-bs-toggle="modal"
+                        data-bs-target="#joinersModal" onclick="loadJoiners(1)">See joiners</button>
+                    </div>
+                    <div id="activityAction"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
             <div class="row">
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen">
                         <i class="fa fa-home fa-2x"></i><br>Home</button>
                 </div>
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0"
-                        id="activitySearchScreen">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0" id="activitySearchScreen">
                         <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
                 </div>
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative" id="messagesScreen">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative"
+                        id="messagesScreen">
                         <i class="fa fa-comment fa-2x"></i><br>Messages
                         <span class="position-absolute top-0 start-50 badge bg-danger">
-                            99+
-                          </span>
+                            2+
+                        </span>
                     </button>
                 </div>
                 <div class="col p-0">
@@ -50,6 +109,22 @@
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
                         <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="joinersModal" tabindex="-1" aria-labelledby="joinersModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header sticky-top bg-white">
+                    <h1 class="modal-title fs-5" id="joinersModalLabel">Joiners</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="joinerList"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
