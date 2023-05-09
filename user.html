@@ -13,7 +13,7 @@
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
         <div class="sticky-top pt-3" style="background-color: white;">
-            <h1 class="text-center mb-3">Profile</h1>
+            <h1 class="text-center mb-3">User</h1>
             <hr class="mb-0">
         </div>
         <div class="text-center">
@@ -38,13 +38,21 @@
                     <p class="m-0">Following</p>
                 </div>
             </div>
-            <div class="container m-0 p-0">
-                <button type="button" class="btn btn-secondary me-3" data-bs-toggle="modal"
-                    data-bs-target="#editUserModal">
-                    <i class="fa fa-pencil"></i>
-                </button>
-                <button type="button" class="btn btn-dark ms-3" data-bs-toggle="modal"
-                    data-bs-target="#searchUserModal" onclick="openSearchUser()">Search users <i class="fa fa-search"></i></button>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#rateUserModal">
+                        <i class="fa fa-star"></i>
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        data-bs-target="#sendMessageModal">
+                        <i class="fa fa-comment"></i>
+                    </button>
+                </div>
+                <div class="col" id="followAction">
+                </div>
             </div>
             <hr>
             <h3 class="mt-3">Recent activities</h3>
@@ -70,34 +78,12 @@
                     </button>
                 </div>
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0" id="profileScreen">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="profileScreen">
                         <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
                         <i class="fa fa-gear fa-2x"></i><br>Settings</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="searchUserModal" tabindex="-1" aria-labelledby="searchUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header sticky-top bg-white">
-                    <h1 class="modal-title fs-5" id="searchUserModalLabel">Joiners</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-2 input-group-lg">
-                        <input type="search" class="form-control border border-1 border-dark" placeholder="Search"
-                            id="searchInput" onsearch="searchUsers()">
-                        <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn" onclick="searchUsers()"><i
-                                class="fa fa-search"></i></button>
-                    </div>
-                    <div id="userList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -134,19 +120,53 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="rateUserModal" tabindex="-1" aria-labelledby="rateUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editUserModalLabel">Filters</h1>
+                    <h1 class="modal-title fs-5" id="rateUserModalLabel">Filters</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ....
+                <div class="modal-body text-center">
+                    <div class="container-sm text-warning fs-2" id="profileRatingStars">
+                        <button type="button" class="btn btn-lg" id="rateStar1" onclick="rate(1)"><i
+                                class="fa fa-star-o"></i></button>
+                        <button type="button" class="btn btn-lg" id="rateStar2" onclick="rate(2)"><i
+                                class="fa fa-star-o"></i></button>
+                        <button type="button" class="btn btn-lg" id="rateStar3" onclick="rate(3)"><i
+                                class="fa fa-star-o"></i></button>
+                        <button type="button" class="btn btn-lg" id="rateStar4" onclick="rate(4)"><i
+                                class="fa fa-star-o"></i></button>
+                        <button type="button" class="btn btn-lg" id="rateStar5" onclick="rate(5)"><i
+                                class="fa fa-star-o"></i></button>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Confirm changes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="confirmRating()">Confirm changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="sendMessageModal" tabindex="-1" aria-labelledby="sendMessageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="sendMessageModalLabel">Send Message</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="container text-center" style="max-width: 1000px;">
+                        <div class="input-group input-group-lg mb-3">
+                            <input type="text" class="form-control border border-dark border-2" placeholder="Message"
+                                id="newMessageInput">
+                            <button class="btn btn-dark border border-dark border-2" type="button"
+                                data-bs-dismiss="modal" onclick="sendMessage()"><i
+                                    class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,7 +174,7 @@
     <script src="lib/bootstrap.bundle.min.js"></script>
     <script src="js/htmlConstants.js"></script>
     <script src="js/requestHelper.js"></script>
-    <script src="js/profileController.js"></script>
+    <script src="js/userController.js"></script>
     <script src="js/navbarController.js"></script>
 </body>
 

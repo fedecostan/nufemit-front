@@ -45,3 +45,8 @@ data.forEach(activity => activityList.innerHTML += activityHtml
     .replace("${description}", activity.description)
     .replace("${place}", activity.place)
 );
+
+function signOut() {
+    sessionStorage.setItem('token', '');
+    window.location.href = "./login.html"
+}

@@ -20,7 +20,7 @@
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="messageScreen">
             <div class="offcanvas-body p-0" id="messageScreenBody">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
-                    <h1 class="mb-3"><i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas"></i>Lionel Messi
+                    <h1 class="mb-3" id="messageUserTitle">
                     </h1>
                     <hr class="mb-0">
                 </div>
@@ -29,8 +29,8 @@
             <div class="sticky-bottom pt-3 px-1" style="background-color: white;">
                 <div class="container text-center" style="max-width: 1000px;">
                     <div class="input-group input-group-lg mb-3">
-                        <input type="text" class="form-control border border-dark border-2" placeholder="Message">
-                        <button class="btn btn-dark border border-dark border-2" type="button" id="button-addon2"><i
+                        <input type="text" class="form-control border border-dark border-2" placeholder="Message" id="newMessageInput">
+                        <button class="btn btn-dark border border-dark border-2" type="button" onclick="sendMessage()"><i
                                 class="fa fa-paper-plane"></i></button>
                     </div>
                 </div>
@@ -51,9 +51,7 @@
                     <button type="button" class="btn btn-sm btn-dark w-100 border border-0 position-relative"
                         id="messagesScreen">
                         <i class="fa fa-comment fa-2x"></i><br>Messages
-                        <span class="position-absolute top-0 start-50 badge bg-danger">
-                            2+
-                        </span>
+                        <span class="position-absolute top-0 start-50 badge bg-danger" id="unreadMessages"></span>
                     </button>
                 </div>
                 <div class="col p-0">
@@ -68,6 +66,8 @@
         </div>
     </div>
     <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/htmlConstants.js"></script>
+    <script src="js/requestHelper.js"></script>
     <script src="js/messagesController.js"></script>
     <script src="js/navbarController.js"></script>
 </body>

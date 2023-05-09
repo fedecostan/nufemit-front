@@ -1,24 +1,96 @@
-const data = [
-    { "title": "MyTitle1", "description": "MyDescription1", "place": "MyCity1" },
-    { "title": "MyTitle2", "description": "MyDescription2", "place": "MyCity2" },
-    { "title": "MyTitle3", "description": "MyDescription3", "place": "MyCity3" },
-    { "title": "MyTitle4", "description": "MyDescription4", "place": "MyCity4" },
-    { "title": "MyTitle5", "description": "MyDescription5", "place": "MyCity5" }
-];
+sendGet('users/self', loadUser);
+sendGet('activities/recent', loadRecentActivities);
 
-const activityHtml =
-'<div class="row m-0 p-1">'+
-    '<div class="col-2 p-0">'+
-        '<img src="images/icon.png" class="object-fit-contain w-100" style="max-height: 100px;">'+
-    '</div>'+
-    '<div class="col-10">'+
-        '<h6>${title} - ${place}</h6>'+
-    '</div>'+
-'</div>';
+function loadUser(data) {
+    document.getElementById("profileName").innerHTML = getFullName(data.response.user);
+    document.getElementById("profileLocation").innerHTML = data.response.user.location;
+    document.getElementById("profileActivitiesCount").innerHTML = data.response.activities;
+    document.getElementById("profileFollowers").innerHTML = data.response.followers;
+    document.getElementById("profileFollowing").innerHTML = data.response.following;
+    document.getElementById("profileRatingStars").innerHTML = getStarConfiguration(data.response.rating);
+}
 
-var activityList = document.getElementById("activityList");
-data.forEach(activity => activityList.innerHTML += activityHtml
-    .replace("${title}", activity.title)
-    .replace("${description}", activity.description)
-    .replace("${place}", activity.place)
-);
+function getFullName(user) {
+    return user.name + ' ' + user.lastname + ' ' + user.secondLastname;
+}
+
+function getStarConfiguration(rating) {
+    if (rating == -1) return '<button type="button" class="btn btn-warning text-dark fw-bold" disabled>NO RATING YET</button>';
+    if (rating < 0.3) return EMPT_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 0.8) return HALF_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 1.3) return FULL_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 1.8) return FULL_STAR + HALF_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 2.3) return FULL_STAR + FULL_STAR + EMPT_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 2.8) return FULL_STAR + FULL_STAR + HALF_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 3.3) return FULL_STAR + FULL_STAR + FULL_STAR + EMPT_STAR + EMPT_STAR;
+    if (rating < 3.8) return FULL_STAR + FULL_STAR + FULL_STAR + HALF_STAR + EMPT_STAR;
+    if (rating < 4.3) return FULL_STAR + FULL_STAR + FULL_STAR + FULL_STAR + EMPT_STAR;
+    if (rating < 4.8) return FULL_STAR + FULL_STAR + FULL_STAR + FULL_STAR + HALF_STAR;
+    return FULL_STAR + FULL_STAR + FULL_STAR + FULL_STAR + FULL_STAR;
+}
+
+function loadRecentActivities(data) {
+    var activityList = document.getElementById("activityList");
+    activityList.innerHTML = '';
+    data.response.forEach(activity => activityList.innerHTML += activityProfileHtml
+        .replace("${title}", activity.title)
+        .replace("${description}", activity.description)
+        .replace("${place}", activity.place)
+    );
+}
+
+function openFollowers() {
+    sendGet('users/followers', loadFollowers)
+}
+
+function loadFollowers(data) {
+    var followersList = document.getElementById("followersList");
+    followersList.innerHTML = '';
+    data.response.forEach(user => {
+        followersList.innerHTML += userHtml
+            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${id}", user.id)
+            .replace("${username}", user.name + " " + user.lastname)
+    })
+}
+
+function openFollowing() {
+    sendGet('users/following', loadFollowing)
+}
+
+function loadFollowing(data) {
+    var followingList = document.getElementById("followingList");
+    followingList.innerHTML = '';
+    data.response.forEach(user => {
+        followingList.innerHTML += userHtml
+            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${id}", user.id)
+            .replace("${username}", user.name + " " + user.lastname)
+    })
+}
+
+function openSearchUser() {
+    sendGet('users', loadUsers)
+}
+
+function loadUsers(data) {
+    var userList = document.getElementById("userList");
+    userList.innerHTML = '';
+    data.response.forEach(user => {
+        userList.innerHTML += userHtml
+            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${id}", user.id)
+            .replace("${username}", user.name + " " + user.lastname)
+    })
+}
+
+function searchUsers() {
+    var searchBox = document.getElementById("searchInput").value;
+    sendGet('users?searchBox=' + searchBox, loadUsers)
+}
+
+
+function openUser(userId) {
+    sessionStorage.setItem('userId', userId);
+    window.location.href = "./user.html";
+}
