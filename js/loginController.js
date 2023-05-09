@@ -16,7 +16,11 @@ function login() {
     if (email.length < 8 || password.length < 8) {
         document.getElementById("loginErrorMsg").style.display = "block";
     }
-    console.log("Login: " + email + " - " + password);
+    sendPostNoAuthorization(
+        'users/login',
+        {"email":email, "password":password},
+        () => document.getElementById("loginErrorMsg").style.display = "block",
+        () => window.location.href = "./activitySearch.html");
 }
 
 function recoverPassword() {

@@ -4,13 +4,27 @@ const INVALID = "is-invalid";
 var emailInput = document.getElementById("emailInput");
 var passwordInput = document.getElementById("passwordInput");
 var nameInput = document.getElementById("nameInput");
-var lastnameInput = document.getElementById("lastNameInput");
+var lastnameInput = document.getElementById("lastnameInput");
+var secondLastnameInput = document.getElementById("secondLastnameInput");
+var phoneInput = document.getElementById("phoneInput");
+var locationInput = document.getElementById("locationInput");
 var birthDateInput = document.getElementById("birthdateInput");
 
 function signup() {
     if (inputsValid()) {
-        console.log(emailInput.value + "-" + passwordInput.value + "-" + nameInput.value + "-" + lastnameInput.value + "-" + birthDateInput.value);
-        window.location.href = "./login.html";
+        var newUser = {
+            "name": nameInput.value,
+            "lastname": lastnameInput.value,
+            "secondLastname": secondLastnameInput.value,
+            "location": locationInput.value,
+            "birthDate": birthDateInput.value,
+            "email": emailInput.value,
+            "password": passwordInput.value,
+            "phone": phoneInput.value
+        }
+        sendPostNoAuthorization('users', newUser,
+            () => showAlert("ERROR TRY AGAIN"),
+            () => window.location.href = "./login.html");
     }
 }
 
@@ -32,6 +46,18 @@ function inputsValid() {
     if (lastnameInput.value.length < 1) {
         lastnameInput.classList.add(INVALID)
         errorMsg += "Invalid lastname<br>"
+    }
+    if (secondLastnameInput.value.length < 1) {
+        secondLastnameInput.classList.add(INVALID)
+        errorMsg += "Invalid second lastname<br>"
+    }
+    if (phoneInput.value.length < 1) {
+        phoneInput.classList.add(INVALID)
+        errorMsg += "Invalid phone<br>"
+    }
+    if (locationInput.value.length < 1) {
+        locationInput.classList.add(INVALID)
+        errorMsg += "Invalid location<br>"
     }
     if (birthDateInput.value.length < 1) {
         birthDateInput.classList.add(INVALID)
