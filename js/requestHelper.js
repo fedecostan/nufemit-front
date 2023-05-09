@@ -92,3 +92,26 @@ function sendGet(path, successHandle) {
             console.error('Error:', error);
         });
 }
+
+function sendDelete(path, successHandle) {
+    fetch(URL + path, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem('token')
+        }
+    })
+        .then(response => {
+            if (response.status == 401) {
+                window.location.href = "./login.html";
+            }
+            return response.json();
+        })
+        .then(data => {
+            sessionStorage.setItem('token', data.token);
+            successHandle(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

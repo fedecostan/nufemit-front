@@ -3,7 +3,6 @@ sendGet('messages', loadConversations);
 function loadConversations(data) {
     var allMessages = document.getElementById("allMessages");
     allMessages.innerHTML = '';
-    var unreadMessages = 0;
     data.response.forEach(message => allMessages.innerHTML += messageTemplata
         .replace("${profileImage}", 'default-profile.jpg')
         .replace("${conversationId}", message.conversationId)
@@ -14,6 +13,10 @@ function loadConversations(data) {
         .replace("${date}", formatDate(message.date))
         .replace("${unread}", message.unread ? unreadMessage : '')
     );
+}
+
+function refreshMessages(){
+    window.location.href = "./messages.html";
 }
 
 function formatDate(dateTime) {

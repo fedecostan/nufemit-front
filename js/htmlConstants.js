@@ -25,6 +25,20 @@ const userHtml =
     '</div>' +
     '</button>';
 
+const activitySettingsHtml =
+    '<div class="row my-2 mx-3 p-1 border rounded">' +
+    '<div class="col-2 p-0">' +
+    '<img src="images/icon.png" class="object-fit-contain w-100" style="max-height: 100px;">' +
+    '</div>' +
+    '<div class="col-8">' +
+    '<h4>${title} - ${place}</h4>' +
+    '<h6>${description}</h6>' +
+    '</div>' +
+    '<div class="col-2 text-end align-middle">' +
+    '<h3><i class="fa fa-trash text-danger"></i></h3>' +
+    '</div>' +
+    '</div>';
+
 const backButtton = '<i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas"></i>';
 
 const joinButton = '<button id="joinBtn" type="button" class="btn btn-lg btn-success w-50 my-3" onclick="join(${id})">JOIN</button>';
@@ -45,7 +59,7 @@ const FULL_STAR = '<i class="fa fa-star"></i>';
 const HALF_STAR = '<i class="fa fa-star-half-o"></i>';
 const EMPT_STAR = '<i class="fa fa-star-o"></i>';
 
-const BACK_ARROW = '<i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas"></i>';
+const BACK_ARROW = '<i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas" onclick="refreshMessages()"></i>';
 
 const unreadMessage =
     '<div class="col text-start" style="max-width: 20px;">' +

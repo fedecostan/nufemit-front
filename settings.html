@@ -12,10 +12,14 @@
 
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
+
+        <!--Title-->
         <div class="sticky-top pt-3" style="background-color: white;">
             <h1 class="text-center mb-3">Settings</h1>
             <hr class="mb-0">
         </div>
+
+        <!--Main content-->
         <div class="container-fluid m-0 px-0" style="padding-bottom: 74px;">
             <button class="btn w-100" data-bs-toggle="offcanvas" href="#activityHistorySettings">
                 <h4 class="py-2 my-0">
@@ -24,7 +28,7 @@
                             <i class="fa fa-history"></i>
                         </div>
                         <div class="col-11 text-start">
-                            Activity history
+                            Activity history<span class="badge rounded-pill text-bg-danger ms-2">Soon</span>
                         </div>
                     </div>
                 </h4>
@@ -37,7 +41,7 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="col-11 text-start">
-                            My reviews
+                            My reviews<span class="badge rounded-pill text-bg-danger ms-2">Soon</span>
                         </div>
                     </div>
                 </h4>
@@ -50,7 +54,7 @@
                             <i class="fa fa-comments"></i>
                         </div>
                         <div class="col-11 text-start">
-                            Contact and help
+                            Contact and help<span class="badge rounded-pill text-bg-danger ms-2">Soon</span>
                         </div>
                     </div>
                 </h4>
@@ -95,6 +99,9 @@
                 </h4>
             </button>
         </div>
+
+        <!--Offcanvas-->
+        <!--Activity History Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="activityHistorySettings">
             <div class="offcanvas-body p-0">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -105,6 +112,8 @@
                 <div id="activityList" style="max-width: 1000px; margin: 0 auto;"></div>
             </div>
         </div>
+
+        <!--My Reviews Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="myReviewsSettings">
             <div class="offcanvas-body p-0">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -115,6 +124,8 @@
                 <div id="reviewList" style="max-width: 1000px; margin: 0 auto;"></div>
             </div>
         </div>
+
+        <!--Contact and help Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="contactHelpSettings">
             <div class="offcanvas-body p-0">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -125,13 +136,15 @@
                 <div class="text-end" style="max-width: 1000px; margin: 0 auto;">
                     <div class="form-floating my-2 mx-3 border border-2 border-dark rounded-2">
                         <textarea class="form-control" placeholder="Leave a comment here" id="commentArea"
-                            style="height: 100px"></textarea>
+                            style="height: 200px"></textarea>
                         <label for="commentArea">Comments and questions</label>
                     </div>
-                    <button type="button" class="btn btn-dark mx-3"><i class="fa fa-paper-plane fa-2x"></i></button>
+                    <button type="button" class="btn btn-dark mx-3" disabled><i class="fa fa-paper-plane fa-2x"></i></button>
                 </div>
             </div>
         </div>
+
+        <!--Privacy settings Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="privacySettings">
             <div class="offcanvas-body p-0">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -142,8 +155,8 @@
                 <div class="fs-2" style="max-width: 1000px; margin: 0 auto;">
                     <div class="form-check form-switch mx-3 my-2">
                         <input class="form-check-input border border-3 border-dark" type="checkbox" role="switch"
-                            id="privateProfileSwitch">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Private profile</label>
+                            id="privateProfileSwitch" disabled>
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Private profile<span class="badge rounded-pill text-bg-danger ms-2">Soon</span></label>
                     </div>
                     <hr>
                     <div class="text-center">
@@ -152,6 +165,8 @@
                 </div>
             </div>
         </div>
+
+        <!--Terms of us Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="termsOfUseSettings">
             <div class="offcanvas-body p-0">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -286,10 +301,12 @@
                 </div>
             </div>
         </div>
+
+        <!--Navbar-->
         <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
             <div class="row">
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen" disabled>
                         <i class="fa fa-home fa-2x"></i><br>Home</button>
                 </div>
                 <div class="col p-0">
@@ -314,6 +331,9 @@
                 </div>
             </div>
         </div>
+
+        <!--Modals-->
+        <!--Sign out modal-->
         <div class="modal fade" id="signOutModal" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -331,6 +351,8 @@
                 </div>
             </div>
         </div>
+
+        <!--Delete account modal-->
         <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -344,13 +366,15 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger">Delete account</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete account</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/htmlConstants.js"></script>
     <script src="js/requestHelper.js"></script>
     <script src="js/settingsController.js"></script>
     <script src="js/navbarController.js"></script>
