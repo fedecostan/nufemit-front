@@ -12,19 +12,57 @@
 
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
+
+        <!--Title-->
         <div class="sticky-top pt-3" style="background-color: white;">
             <h1 class="text-center mb-3">Activities</h1>
             <div class="input-group mb-2 input-group-lg">
                 <input type="search" class="form-control border border-1 border-dark" placeholder="Search"
                     id="searchInput" onsearch="searchActivities()">
-                <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn" onclick="searchActivities()"><i
-                        class="fa fa-search"></i></button>
+                <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn"
+                    onclick="searchActivities()"><i class="fa fa-search"></i></button>
             </div>
             <button class="btn w-100 btn-success border border-1 border-dark fw-bold" type="button"
                 data-bs-toggle="modal" data-bs-target="#newActivityModal">New Activity</i></button>
             <hr class="mb-0 mt-2">
         </div>
+
+        <!--Main content-->
         <div id="activityList" class="text-center" style="padding-bottom: 74px;"></div>
+
+        <!--Navbar-->
+        <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
+            <div class="row">
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative" id="homeScreen" disabled>
+                        <i class="fa fa-home fa-2x"></i><br>Home
+                        <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger">SOON</span>
+                    </button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0" id="activitySearchScreen">
+                        <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative"
+                        id="messagesScreen">
+                        <i class="fa fa-comment fa-2x"></i><br>Messages
+                        <span class="position-absolute top-0 start-50 badge bg-danger" id="unreadMessages"></span>
+                    </button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="profileScreen">
+                        <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
+                        <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!--Offcanvas-->
+        <!--Activity Screen-->
         <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="activityScreen">
             <div class="offcanvas-body p-0" id="messageScreenBody">
                 <div class="sticky-top pt-3 px-3" style="background-color: white;">
@@ -84,96 +122,77 @@
                 </div>
             </div>
         </div>
-        <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
-            <div class="row">
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen" disabled>
-                        <i class="fa fa-home fa-2x"></i><br>Home</button>
-                </div>
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-dark w-100 border border-0" id="activitySearchScreen">
-                        <i class="fa fa-gamepad fa-2x"></i><br>Activities</button>
-                </div>
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative"
-                        id="messagesScreen">
-                        <i class="fa fa-comment fa-2x"></i><br>Messages
-                        <span class="position-absolute top-0 start-50 badge bg-danger" id="unreadMessages"></span>
-                    </button>
-                </div>
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="profileScreen">
-                        <i class="fa fa-user-circle fa-2x"></i><br>Profile</button>
-                </div>
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
-                        <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+
+        <!--Modals-->
+        <!--Joiners modal-->
+        <div class="modal fade" id="joinersModal" tabindex="-1" aria-labelledby="joinersModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header sticky-top bg-white">
+                        <h1 class="modal-title fs-5" id="joinersModalLabel">Joiners</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="joinerList"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="joinersModal" tabindex="-1" aria-labelledby="joinersModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header sticky-top bg-white">
-                    <h1 class="modal-title fs-5" id="joinersModalLabel">Joiners</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="joinerList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="newActivityModal" tabindex="-1" aria-labelledby="newActivityModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="newActivityModalLabel">New Activity</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-floating mb-1">
-                        <input type="text" class="form-control" id="titleInput" placeholder="Title">
-                        <label for="titleInput">Title</label>
+
+        <!--New Activity modal-->
+        <div class="modal fade" id="newActivityModal" tabindex="-1" aria-labelledby="newActivityModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="newActivityModalLabel">New Activity</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="mb-1">
-                        <textarea class="form-control" placeholder="Description" id="descriptionInput" style="height: 100px"></textarea>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <input type="text" class="form-control" id="placeInput" placeholder="Place">
-                        <label for="placeInput">Place</label>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <input type="datetime-local" class="form-control" id="dateInput" placeholder="Date">
-                        <label for="dateInput">Date</label>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <input type="number" class="form-control" id="priceInput" placeholder="Price">
-                        <label for="priceInput">Price</label>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <input type="number" class="form-control" id="maxParticipantsInput" placeholder="Max Participants">
-                        <label for="maxParticipantsInput">Max Participants</label>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <button type="button" class="btn btn-primary btn-lg w-100 mb-3"
-                                id="createActivityBtn" data-bs-dismiss="modal" onclick="createActivity()">Create</button>
+                    <div class="modal-body">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control" id="titleInput" placeholder="Title">
+                            <label for="titleInput">Title</label>
                         </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-danger btn-lg w-100 mb-3"
-                                data-bs-dismiss="modal">Cancel</button>
+                        <div class="mb-1">
+                            <textarea class="form-control" placeholder="Description" id="descriptionInput"
+                                style="height: 100px"></textarea>
+                        </div>
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control" id="placeInput" placeholder="Place">
+                            <label for="placeInput">Place</label>
+                        </div>
+                        <div class="form-floating mb-1">
+                            <input type="datetime-local" class="form-control" id="dateInput" placeholder="Date">
+                            <label for="dateInput">Date</label>
+                        </div>
+                        <div class="form-floating mb-1">
+                            <input type="number" class="form-control" id="priceInput" placeholder="Price">
+                            <label for="priceInput">Price</label>
+                        </div>
+                        <div class="form-floating mb-1">
+                            <input type="number" class="form-control" id="maxParticipantsInput"
+                                placeholder="Max Participants">
+                            <label for="maxParticipantsInput">Max Participants</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <button type="button" class="btn btn-primary btn-lg w-100 mb-3" id="createActivityBtn"
+                                    data-bs-dismiss="modal" onclick="createActivity()">Create</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-danger btn-lg w-100 mb-3"
+                                    data-bs-dismiss="modal">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="lib/bootstrap.bundle.min.js"></script>
     <script src="js/requestHelper.js"></script>
     <script src="js/htmlConstants.js"></script>

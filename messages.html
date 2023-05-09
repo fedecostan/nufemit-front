@@ -12,35 +12,24 @@
 
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
+
+        <!--Title-->
         <div class="sticky-top pt-3" style="background-color: white;">
             <h1 class="text-center mb-3">Messages</h1>
             <hr class="mb-0">
         </div>
+
+        <!--Main content-->
         <div id="allMessages" class="container-fluid m-0 px-0" style="padding-bottom: 74px;"></div>
-        <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="messageScreen">
-            <div class="offcanvas-body p-0" id="messageScreenBody">
-                <div class="sticky-top pt-3 px-3" style="background-color: white;">
-                    <h1 class="mb-3" id="messageUserTitle">
-                    </h1>
-                    <hr class="mb-0">
-                </div>
-                <div id="userMessages" style="max-width: 1000px; margin: 0 auto;" data-bs-spy="scroll"></div>
-            </div>
-            <div class="sticky-bottom pt-3 px-1" style="background-color: white;">
-                <div class="container text-center" style="max-width: 1000px;">
-                    <div class="input-group input-group-lg mb-3">
-                        <input type="text" class="form-control border border-dark border-2" placeholder="Message" id="newMessageInput">
-                        <button class="btn btn-dark border border-dark border-2" type="button" onclick="sendMessage()"><i
-                                class="fa fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <!--Navbar-->
         <div class="container text-center py-2 px-3 fixed-bottom" style="background-color: white; max-width: 1000px;">
             <div class="row">
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen" disabled>
-                        <i class="fa fa-home fa-2x"></i><br>Home</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative" id="homeScreen" disabled>
+                        <i class="fa fa-home fa-2x"></i><br>Home
+                        <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger">SOON</span>
+                    </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0"
@@ -61,6 +50,28 @@
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="settingsScreen">
                         <i class="fa fa-gear fa-2x"></i><br>Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!--Offcanvas-->
+        <!--Messages Screen-->
+        <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="messageScreen">
+            <div class="offcanvas-body p-0" id="messageScreenBody">
+                <div class="sticky-top pt-3 px-3" style="background-color: white;">
+                    <h1 class="mb-3" id="messageUserTitle">
+                    </h1>
+                    <hr class="mb-0">
+                </div>
+                <div id="userMessages" style="max-width: 1000px; margin: 0 auto;" data-bs-spy="scroll"></div>
+            </div>
+            <div class="sticky-bottom pt-3 px-1" style="background-color: white;">
+                <div class="container text-center" style="max-width: 1000px;">
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control border border-dark border-2" placeholder="Message" id="newMessageInput">
+                        <button class="btn btn-dark border border-dark border-2" type="button" onclick="sendMessage()"><i
+                                class="fa fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

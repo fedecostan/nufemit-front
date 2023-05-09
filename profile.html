@@ -12,10 +12,14 @@
 
 <body style="background-color: rgb(2, 21, 119);">
     <div class="container px-3" style="background-color: white; max-width: 1000px; min-height: 100vh;">
+
+        <!--Title-->
         <div class="sticky-top pt-3" style="background-color: white;">
             <h1 class="text-center mb-3">Profile</h1>
             <hr class="mb-0">
         </div>
+
+        <!--Main content-->
         <div class="text-center">
             <img src="images/default-profile.jpg" class="rounded-circle object-fit-cover w-100 mt-2"
                 style="height: 150px; width: 150px; max-height: 150px; max-width: 150px;">
@@ -39,9 +43,10 @@
                 </div>
             </div>
             <div class="container m-0 p-0">
-                <button type="button" class="btn btn-secondary me-3" data-bs-toggle="modal"
-                    data-bs-target="#editUserModal">
+                <button type="button" class="btn btn-secondary me-3 position-relative" data-bs-toggle="modal"
+                    data-bs-target="#editUserModal" disabled>
                     <i class="fa fa-pencil"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">SOON</span>
                 </button>
                 <button type="button" class="btn btn-dark ms-3" data-bs-toggle="modal"
                     data-bs-target="#searchUserModal" onclick="openSearchUser()">Search users <i class="fa fa-search"></i></button>
@@ -50,12 +55,16 @@
             <h3 class="mt-3">Recent activities</h3>
         </div>
         <div id="activityList" class="overflow-y-auto" style="padding-bottom: 74px;"></div>
+
+        <!--Navbar-->
         <div class="container text-center py-2 px-3 fixed-bottom"
             style="background-color: whitesmoke; max-width: 1000px;">
             <div class="row">
                 <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0" id="homeScreen" disabled>
-                        <i class="fa fa-home fa-2x"></i><br>Home</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative" id="homeScreen" disabled>
+                        <i class="fa fa-home fa-2x"></i><br>Home
+                        <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger">SOON</span>
+                    </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0"
@@ -79,78 +88,72 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="searchUserModal" tabindex="-1" aria-labelledby="searchUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header sticky-top bg-white">
-                    <h1 class="modal-title fs-5" id="searchUserModalLabel">Search users</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-2 input-group-lg">
-                        <input type="search" class="form-control border border-1 border-dark" placeholder="Search"
-                            id="searchInput" onsearch="searchUsers()">
-                        <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn" onclick="searchUsers()"><i
-                                class="fa fa-search"></i></button>
+
+        <!--Modals-->
+        <!--Search User modal-->
+        <div class="modal fade" id="searchUserModal" tabindex="-1" aria-labelledby="searchUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header sticky-top bg-white">
+                        <h1 class="modal-title fs-5" id="searchUserModalLabel">Search users</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="userList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="followersModal" tabindex="-1" aria-labelledby="followersModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="followersModalLabel">Followers</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="followersList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-body">
+                        <div class="input-group mb-2 input-group-lg">
+                            <input type="search" class="form-control border border-1 border-dark" placeholder="Search"
+                                id="searchInput" onsearch="searchUsers()">
+                            <button class="btn btn-primary border border-1 border-dark" type="button" id="searchBtn" onclick="searchUsers()"><i
+                                    class="fa fa-search"></i></button>
+                        </div>
+                        <div id="userList"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="followingModalLabel">Following</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="followingList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editUserModalLabel">Filters</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ....
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Confirm changes</button>
+
+        <!--Followers modal-->
+        <div class="modal fade" id="followersModal" tabindex="-1" aria-labelledby="followersModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="followersModalLabel">Followers</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="followersList"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!--Following modal-->
+        <div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="followingModalLabel">Following</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="followingList"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Edit User modal-->
+        <!--TBD-->
     </div>
+
     <script src="lib/bootstrap.bundle.min.js"></script>
     <script src="js/htmlConstants.js"></script>
     <script src="js/requestHelper.js"></script>
