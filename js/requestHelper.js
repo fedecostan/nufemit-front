@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8080/';
+const URL = 'https://app-nufemit-back.herokuapp.com/';
 
 function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
     fetch(URL + path, {
