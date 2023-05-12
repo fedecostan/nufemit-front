@@ -8,6 +8,9 @@ function loadUser(data) {
     document.getElementById("profileFollowers").innerHTML = data.response.followers;
     document.getElementById("profileFollowing").innerHTML = data.response.following;
     document.getElementById("profileRatingStars").innerHTML = getStarConfiguration(data.response.rating);
+    fetchFile(data.response.user.profileImage,
+        image => document.getElementById("profileImage").src = image,
+        () => document.getElementById("profileImage").src = "images/default-profile.jpg")
 }
 
 function getFullName(user) {
@@ -88,7 +91,6 @@ function searchUsers() {
     var searchBox = document.getElementById("searchInput").value;
     sendGet('users?searchBox=' + searchBox, loadUsers)
 }
-
 
 function openUser(userId) {
     sessionStorage.setItem('userId', userId);

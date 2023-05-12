@@ -11,6 +11,7 @@ var locationInput = document.getElementById("locationInput");
 var birthDateInput = document.getElementById("birthdateInput");
 
 function signup() {
+    var profileImgId = Date.now();
     if (inputsValid()) {
         var newUser = {
             "name": nameInput.value,
@@ -20,11 +21,15 @@ function signup() {
             "birthDate": birthDateInput.value,
             "email": emailInput.value,
             "password": passwordInput.value,
-            "phone": phoneInput.value
+            "phone": phoneInput.value,
+            "profileImage": profileImgId
         }
         sendPostNoAuthorization('users', newUser,
             () => showAlert("ERROR TRY AGAIN"),
-            () => window.location.href = "./login.html");
+            () => {
+                sendFile(document.getElementById("profileImageInput").files[0], profileImgId);
+                window.location.href = "./login.html";
+            });
     }
 }
 
