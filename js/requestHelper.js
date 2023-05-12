@@ -1,5 +1,5 @@
-//const BACK_URL = 'https://app-nufemit-back.herokuapp.com/';
-const BACK_URL = 'http://localhost:8080/';
+const BACK_URL = 'https://app-nufemit-back.herokuapp.com/';
+//const BACK_URL = 'http://localhost:8080/';
 
 function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
     fetch(BACK_URL + path, {
