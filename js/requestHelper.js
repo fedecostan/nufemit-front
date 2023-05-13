@@ -139,9 +139,6 @@ function sendFile(file, fileName) {
     formData.append('file', file);
     fetch(BACK_URL + 'resources/' + fileName, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
         body: formData
     })
         .then(response => {
