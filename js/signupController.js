@@ -29,7 +29,7 @@ function signup() {
             () => {
                 compressImage(document.getElementById("profileImageInput").files[0], 75)
                     .then(compressedImg => sendFile(compressedImg, profileImgId))
-                    .finally(() => window.location.href = "./login.html")
+                    .then(response => window.location.href = "./login.html")
             });
     }
 }
