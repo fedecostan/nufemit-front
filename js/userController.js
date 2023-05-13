@@ -144,7 +144,11 @@ function openUser(userId) {
 function sendMessage() {
     var newMessage = document.getElementById("newMessageInput").value;
     if (newMessage.length > 0) {
-        sendPost('messages', { "receiverId": userId, "message": newMessage }, () => document.getElementById("newMessageInput").value = "")
+        sendPost('messages', { "receiverId": userId, "message": newMessage },
+        () => {
+            document.getElementById("newMessageInput").value = "";
+            document.getElementById("messageSentAlert").style.display = "block";
+        })
     }
 }
 

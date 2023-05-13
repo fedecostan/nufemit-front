@@ -1,5 +1,5 @@
-//const BACK_URL = 'https://app-nufemit-back.herokuapp.com/';
-const BACK_URL = 'http://localhost:8080/';
+const BACK_URL = 'https://app-nufemit-back.herokuapp.com/';
+//const BACK_URL = 'http://localhost:8080/';
 
 function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
     fetch(BACK_URL + path, {
@@ -142,9 +142,6 @@ function sendFile(file, fileName) {
         body: formData
     })
         .then(response => {
-            if (response.status == 401) {
-                window.location.href = "./login.html";
-            }
             return response.json();
         })
         .then(data => {

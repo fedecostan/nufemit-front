@@ -33,10 +33,21 @@ function getStarConfiguration(rating) {
 function loadRecentActivities(data) {
     var activityList = document.getElementById("activityList");
     activityList.innerHTML = '';
-    data.response.forEach(activity => activityList.innerHTML += activityProfileHtml
-        .replace("${title}", activity.title)
-        .replace("${description}", activity.description)
-        .replace("${place}", activity.place)
+    data.response.forEach(activity => {
+        var activityProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
+        activityList.innerHTML += activityProfileHtml
+            .replace("${title}", activity.title)
+            .replace("${activityImage}", activity.activityImage ? activity.activityImage : activityProvisionalId)
+            .replace("${description}", activity.description)
+            .replace("${place}", activity.place);
+        if (activity.activityImage) {
+            fetchFile(activity.activityImage,
+                image => document.getElementById(activity.activityImage).src = image,
+                () => document.getElementById(activity.activityImage).src = "images/default-activity.jpg");
+        } else {
+            document.getElementById(activityProvisionalId).src = "images/default-activity.jpg";
+        }
+    }
     );
 }
 

@@ -11,7 +11,7 @@ var locationInput = document.getElementById("locationInput");
 var birthDateInput = document.getElementById("birthdateInput");
 
 function signup() {
-    var profileImgId = Date.now();
+    var profileImgId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
     if (inputsValid()) {
         var newUser = {
             "name": nameInput.value,
@@ -26,11 +26,10 @@ function signup() {
         }
         sendPostNoAuthorization('users', newUser,
             () => showAlert("ERROR TRY AGAIN"),
-            () => {
-                compressImage(document.getElementById("profileImageInput").files[0])
-                    .then(compressedImg => sendFile(compressedImg, profileImgId))
-                    .then(response => window.location.href = "./login.html")
-            });
+            () => compressImage(document.getElementById("profileImageInput").files[0])
+                .then(compressedImg => sendFile(compressedImg, profileImgId))
+                .then(response => window.location.href = "./login.html")
+        );
     }
 }
 

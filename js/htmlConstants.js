@@ -2,7 +2,7 @@ const activitySearchHtml =
     '<button type="button" class="btn w-100 p-0 m-0" data-bs-toggle="offcanvas" href="#activityScreen" onClick="openActivity(${id})">' +
     '<div class="row mx-1 my-2 p-3 border border-2 border-secondary-subtle rounded-4 bg-white text-start">' +
     '<div class="col-3 p-0">' +
-    '<img src="images/icon.png" class="rounded object-fit-contain w-100" style="max-height: 100px;">' +
+    '<img id="${activityImage}" class="rounded object-fit-contain w-100" style="max-height: 100px;">' +
     '</div>' +
     '<div class="col-9">' +
     '<h5>${title}</h5>' +
@@ -47,7 +47,7 @@ const leaveButton = '<button type="button" class="btn btn-lg btn-danger w-50 my-
 const activityProfileHtml =
     '<div class="row m-0 p-1">' +
     '<div class="col-2 p-0">' +
-    '<img src="images/icon.png" class="object-fit-contain w-100" style="max-height: 100px;">' +
+    '<img id="${activityImage}" class="object-fit-contain w-100" style="max-height: 100px;">' +
     '</div>' +
     '<div class="col-10">' +
     '<h4>${title} - ${place}</h4>' +

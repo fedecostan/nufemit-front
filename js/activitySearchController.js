@@ -1,13 +1,26 @@
+sendGet('activities', loadActivities)
+
 function loadActivities(data) {
     var activityList = document.getElementById("activityList");
     activityList.innerHTML = '';
     data.response.reverse();
-    data.response.forEach(activity => activityList.innerHTML += activitySearchHtml
-        .replace("${title}", activity.title)
-        .replace("${description}", shortText(activity.description))
-        .replace("${place}", activity.place)
-        .replace("${dateTime}", formatDate(activity.dateTime))
-        .replace("${id}", activity.id));
+    data.response.forEach(activity => {
+        var activityProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
+        activityList.innerHTML += activitySearchHtml
+            .replace("${title}", activity.title)
+            .replace("${activityImage}", activity.activityImage ? activity.activityImage : activityProvisionalId)
+            .replace("${description}", shortText(activity.description))
+            .replace("${place}", activity.place)
+            .replace("${dateTime}", formatDate(activity.dateTime))
+            .replace("${id}", activity.id);
+        if (activity.activityImage) {
+            fetchFile(activity.activityImage,
+                image => document.getElementById(activity.activityImage).src = image,
+                () => document.getElementById(activity.activityImage).src = "images/default-activity.jpg");
+        } else {
+            document.getElementById(activityProvisionalId).src = "images/default-activity.jpg";
+        }
+    });
 }
 
 function shortText(text) {
@@ -18,8 +31,6 @@ function shortText(text) {
         return text;
     }
 }
-
-sendGet('activities', loadActivities)
 
 function formatDate(dateTime) {
     const date = new Date(dateTime);
@@ -38,6 +49,13 @@ function loadActivity(data) {
     document.getElementById("time").value = formatDate(data.response.dateTime);
     document.getElementById("price").value = data.response.price;
     document.getElementById("registered").innerHTML = data.response.joiners.length + "/" + data.response.limit;
+    if (data.response.activityImage) {
+        fetchFile(data.response.activityImage,
+            image => document.getElementById("activityImage").src = image,
+            () => document.getElementById("activityImage").src = "images/default-activity.jpg");
+    } else {
+        document.getElementById("activityImage").src = "images/default-activity.jpg";
+    }
     document.getElementById("activityAction").innerHTML = data.response.joined ?
         leaveButton.replace("${id}", data.response.id) :
         joinButton.replace("${id}", data.response.id);
@@ -49,11 +67,12 @@ function loadActivity(data) {
         var joinerList = document.getElementById("joinerList");
         joinerList.innerHTML = '';
         data.response.joiners.forEach(joiner => {
+            var imageProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
             joinerList.innerHTML += userHtml
-                .replace("${profileImage}", joiner.profileImage)
+                .replace("${profileImage}", joiner.profileImage ? joiner.profileImage : imageProvisionalId)
                 .replace("${id}", joiner.id)
                 .replace("${username}", joiner.name + " " + joiner.lastname);
-            setProfileImage(joiner.profileImage, joiner.profileImage);
+            setProfileImage(joiner.profileImage, joiner.profileImage ? joiner.profileImage : imageProvisionalId);
         })
     }
     if (!data.response.joined) {
@@ -111,7 +130,21 @@ function createActivity() {
     var date = document.getElementById("dateInput").value;
     var price = document.getElementById("priceInput").value;
     var maxParticipants = document.getElementById("maxParticipantsInput").value;
-    sendPost('activities', { "title": title, "description": description, "place": place, "dateTime": date, "maxParticipants": maxParticipants, "price": price }, () => sendGet('activities', loadActivities))
+    var activityImgId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
+    sendPost('activities',
+        {
+            "title": title,
+            "description": description,
+            "place": place,
+            "dateTime": date,
+            "maxParticipants": maxParticipants,
+            "price": price,
+            "activityImage": activityImgId
+        },
+        () => compressImage(document.getElementById("activityImageInput").files[0])
+            .then(compressedImg => sendFile(compressedImg, activityImgId))
+            .then(response => sendGet('activities', loadActivities))
+    )
 }
 
 function searchActivities() {
