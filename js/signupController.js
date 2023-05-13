@@ -27,7 +27,7 @@ function signup() {
         sendPostNoAuthorization('users', newUser,
             () => showAlert("ERROR TRY AGAIN"),
             () => {
-                compressImage(document.getElementById("profileImageInput").files[0], 75)
+                compressImage(document.getElementById("profileImageInput").files[0])
                     .then(compressedImg => sendFile(compressedImg, profileImgId))
                     .then(response => window.location.href = "./login.html")
             });

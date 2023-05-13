@@ -1,4 +1,4 @@
-function compressImage(file, maxSizeKB) {
+function compressImage(file) {
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = function() {
@@ -7,12 +7,12 @@ function compressImage(file, maxSizeKB) {
         let width = image.width;
         let height = image.height;
         let quality = 0.7;
-        let scaleFactor = Math.sqrt(maxSizeKB * 1024 / file.size);
+        let scaleFactor = Math.sqrt(51200 / file.size);
         canvas.width = width * scaleFactor;
         canvas.height = height * scaleFactor;
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         canvas.toBlob(function(blob) {
-          if (blob.size > maxSizeKB * 1024) {
+          if (blob.size > 76800) {
             reject("Compressed image size exceeds maximum limit.");
           } else {
             resolve(blob);
