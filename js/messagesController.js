@@ -57,17 +57,23 @@ function loadConversationMessages(data) {
 }
 
 function loadIncomingImage(data) {
-    fetchFile(data.response.user.profileImage,
-        image => setImage(image, "incoming"),
-        () => setImage("images/default-profile.jpg", "incoming")
-    )
+    if (data.response.user.profileImage) {
+        fetchFile(data.response.user.profileImage,
+            image => setImage(image, "incoming"),
+            () => setImage("images/default-profile.jpg", "incoming"));
+    } else {
+        setImage("images/default-profile.jpg", "incoming");
+    }
 }
 
 function loadOutgoingImage(data) {
-    fetchFile(data.response.user.profileImage,
-        image => setImage(image, "outgoing"),
-        () => setImage("images/default-profile.jpg", "outgoing")
-    )
+    if (data.response.user.profileImage) {
+        fetchFile(data.response.user.profileImage,
+            image => setImage(image, "outgoing"),
+            () => setImage("images/default-profile.jpg", "outgoing"));
+    } else {
+        setImage("images/default-profile.jpg", "outgoing");
+    }
 }
 
 function setImage(image, flow) {
