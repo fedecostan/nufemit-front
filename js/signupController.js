@@ -27,8 +27,9 @@ function signup() {
         sendPostNoAuthorization('users', newUser,
             () => showAlert("ERROR TRY AGAIN"),
             () => {
-                sendFile(document.getElementById("profileImageInput").files[0], profileImgId);
-                window.location.href = "./login.html";
+                compressImage(document.getElementById("profileImageInput").files[0], 75)
+                    .then(compressedImg => sendFile(compressedImg, profileImgId))
+                    .finally(() => window.location.href = "./login.html")
             });
     }
 }
