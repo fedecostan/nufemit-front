@@ -3,19 +3,22 @@ sendGet('messages', loadConversations);
 function loadConversations(data) {
     var allMessages = document.getElementById("allMessages");
     allMessages.innerHTML = '';
-    data.response.forEach(message => allMessages.innerHTML += messageTemplata
-        .replace("${profileImage}", 'default-profile.jpg')
-        .replace("${conversationId}", message.conversationId)
-        .replace("${userId}", message.userId)
-        .replace("${username}", message.conversationUser)
-        .replace("${username}", message.conversationUser)
-        .replace("${lastMessage}", message.lastMessage)
-        .replace("${date}", formatDate(message.date))
-        .replace("${unread}", message.unread ? unreadMessage : '')
+    data.response.forEach(message => {
+        allMessages.innerHTML += messageTemplata
+            .replace("${profileImage}", message.userProfileImage)
+            .replace("${conversationId}", message.conversationId)
+            .replace("${userId}", message.userId)
+            .replace("${username}", message.conversationUser)
+            .replace("${username}", message.conversationUser)
+            .replace("${lastMessage}", message.lastMessage)
+            .replace("${date}", formatDate(message.date))
+            .replace("${unread}", message.unread ? unreadMessage : '');
+        setProfileImage(message.userProfileImage, message.userProfileImage);
+    }
     );
 }
 
-function refreshMessages(){
+function refreshMessages() {
     window.location.href = "./messages.html";
 }
 
@@ -26,12 +29,12 @@ function formatDate(dateTime) {
 }
 
 function loadMessages(conversationId, userId, userName) {
-    sendGet('messages/' + conversationId, loadConversationMessages);
-    document.getElementById("newMessageInput").value = "";
-    document.getElementById("messageUserTitle").innerHTML = BACK_ARROW + userName;
     newMessageConversationName = userName;
     newMessageConversationUser = userId;
     newMessageConversationId = conversationId;
+    sendGet('messages/' + conversationId, loadConversationMessages);
+    document.getElementById("newMessageInput").value = "";
+    document.getElementById("messageUserTitle").innerHTML = BACK_ARROW + userName;
 }
 
 function loadConversationMessages(data) {
@@ -40,12 +43,38 @@ function loadConversationMessages(data) {
     data.response.forEach(message => userMessages.innerHTML +=
         (message.flow === 'I' ?
             incomingMessageTemplate : outgoingMessageTemplate)
-            .replace("${profileImage}", 'default-profile.jpg')
             .replace("${message}", message.message)
             .replace("${date}", formatDate(message.dateTime))
     );
+    sendGet('users/' + newMessageConversationUser, loadIncomingImage);
+    sendGet('users/self', loadOutgoingImage);
+    const outgoingImages = document.querySelectorAll('[data-group="outgoing"]');
+    for (let i = 0; i < outgoingImages.length; i++) {
+        outgoingImages[i].src = 'image-b.jpg';
+    }
     var messageScreenBody = document.getElementById("messageScreenBody");
     messageScreenBody.scrollTo(0, messageScreenBody.scrollHeight);
+}
+
+function loadIncomingImage(data) {
+    fetchFile(data.response.user.profileImage,
+        image => setImage(image, "incoming"),
+        () => setImage("images/default-profile.jpg", "incoming")
+    )
+}
+
+function loadOutgoingImage(data) {
+    fetchFile(data.response.user.profileImage,
+        image => setImage(image, "outgoing"),
+        () => setImage("images/default-profile.jpg", "outgoing")
+    )
+}
+
+function setImage(image, flow) {
+    const imgs = document.querySelectorAll('[data-group="' + flow + '"]');
+    for (let i = 0; i < imgs.length; i++) {
+        imgs[i].src = image;
+    }
 }
 
 var newMessageConversationName;

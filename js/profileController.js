@@ -8,9 +8,7 @@ function loadUser(data) {
     document.getElementById("profileFollowers").innerHTML = data.response.followers;
     document.getElementById("profileFollowing").innerHTML = data.response.following;
     document.getElementById("profileRatingStars").innerHTML = getStarConfiguration(data.response.rating);
-    fetchFile(data.response.user.profileImage,
-        image => document.getElementById("profileImage").src = image,
-        () => document.getElementById("profileImage").src = "images/default-profile.jpg")
+    setProfileImage(data.response.user.profileImage, "profileImage");
 }
 
 function getFullName(user) {
@@ -51,9 +49,10 @@ function loadFollowers(data) {
     followersList.innerHTML = '';
     data.response.forEach(user => {
         followersList.innerHTML += userHtml
-            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${profileImage}", "follower" + user.profileImage)
             .replace("${id}", user.id)
-            .replace("${username}", user.name + " " + user.lastname)
+            .replace("${username}", user.name + " " + user.lastname);
+        setProfileImage(user.profileImage, "follower" + user.profileImage);
     })
 }
 
@@ -66,9 +65,10 @@ function loadFollowing(data) {
     followingList.innerHTML = '';
     data.response.forEach(user => {
         followingList.innerHTML += userHtml
-            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${profileImage}", "following" + user.profileImage)
             .replace("${id}", user.id)
-            .replace("${username}", user.name + " " + user.lastname)
+            .replace("${username}", user.name + " " + user.lastname);
+        setProfileImage(user.profileImage, "following" + user.profileImage);
     })
 }
 
@@ -81,9 +81,10 @@ function loadUsers(data) {
     userList.innerHTML = '';
     data.response.forEach(user => {
         userList.innerHTML += userHtml
-            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${profileImage}", "search" + user.profileImage)
             .replace("${id}", user.id)
-            .replace("${username}", user.name + " " + user.lastname)
+            .replace("${username}", user.name + " " + user.lastname);
+        setProfileImage(user.profileImage, "search" + user.profileImage);
     })
 }
 

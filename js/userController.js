@@ -9,6 +9,7 @@ function loadUser(data) {
     document.getElementById("profileFollowers").innerHTML = data.response.followers;
     document.getElementById("profileFollowing").innerHTML = data.response.following;
     document.getElementById("profileRatingStars").innerHTML = getStarConfiguration(data.response.rating);
+    setProfileImage(data.response.user.profileImage, "profileImage");
     var followAction = document.getElementById("followAction");
     followAction.innerHTML = data.response.followedByUser ?
         '<button type="button" class="btn btn-danger" onclick="unfollow()">Unfollow</button>' :
@@ -61,9 +62,10 @@ function loadFollowers(data) {
     followersList.innerHTML = '';
     data.response.forEach(user => {
         followersList.innerHTML += userHtml
-            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${profileImage}", "follower" + user.profileImage)
             .replace("${id}", user.id)
-            .replace("${username}", user.name + " " + user.lastname)
+            .replace("${username}", user.name + " " + user.lastname);
+        setProfileImage(user.profileImage, "follower" + user.profileImage);
     })
 }
 
@@ -76,9 +78,10 @@ function loadFollowing(data) {
     followingList.innerHTML = '';
     data.response.forEach(user => {
         followingList.innerHTML += userHtml
-            .replace("${profileImage}", "default-profile.jpg")
+            .replace("${profileImage}", "following" + user.profileImage)
             .replace("${id}", user.id)
-            .replace("${username}", user.name + " " + user.lastname)
+            .replace("${username}", user.name + " " + user.lastname);
+        setProfileImage(user.profileImage, "following" + user.profileImage);
     })
 }
 

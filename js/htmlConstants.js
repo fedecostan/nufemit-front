@@ -17,7 +17,7 @@ const userHtml =
     '<button type="button" class="btn w-100 p-0 m-0" onClick="openUser(${id})">' +
     '<div class="row align-items-center">' +
     '<div class="col text-center" style="max-width: 80px;">' +
-    '<img src="images/${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;">' +
+    '<img id="${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;">' +
     '</div>' +
     '<div class="col text-start ms-2">' +
     '<h3 class="m-0 p-0 fw-bold">${username}</h3>' +
@@ -70,7 +70,7 @@ const messageTemplata =
     '<h4 class="py-1 my-0">' +
     '<div class="row align-items-center">' +
     '<div class="col text-center" style="max-width: 80px;">' +
-    '<img src="images/${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;">' +
+    '<img id="${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;">' +
     '</div>' +
     '<div class="col text-start ms-2">' +
     '<h3 class="m-0 p-0 fw-bold">${username}</h3>' +
@@ -86,7 +86,7 @@ const messageTemplata =
 const incomingMessageTemplate =
     '<div class="row my-1 mx-3 p-1 align-items-center rounded-3 w-75 bg-success-subtle float-start">' +
     '<div class="col-2 p-0 text-center">' +
-    '<img src="images/${profileImage}" class="object-fit-cover w-100 rounded-circle" style="max-height: 50px; max-width: 50px;">' +
+    '<img data-group="incoming" class="object-fit-cover w-100 rounded-circle" style="max-height: 50px; max-width: 50px;">' +
     '</div>' +
     '<div class="col-10">' +
     '<h6>${message}<p class="fw-lighter float-end">${date}</p></h6>' +
@@ -99,6 +99,6 @@ const outgoingMessageTemplate =
     '<h6>${message}<p class="fw-lighter float-end">${date}</p></h6>' +
     '</div>' +
     '<div class="col-2 p-0 text-center">' +
-    '<img src="images/${profileImage}" class="object-fit-cover w-100 rounded-circle" style="max-height: 50px; max-width: 50px;">' +
+    '<img data-group="outgoing" class="object-fit-cover w-100 rounded-circle" style="max-height: 50px; max-width: 50px;">' +
     '</div>' +
     '</div>';

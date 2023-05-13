@@ -50,9 +50,10 @@ function loadActivity(data) {
         joinerList.innerHTML = '';
         data.response.joiners.forEach(joiner => {
             joinerList.innerHTML += userHtml
-                .replace("${profileImage}", "default-profile.jpg")
+                .replace("${profileImage}", joiner.profileImage)
                 .replace("${id}", joiner.id)
-                .replace("${username}", joiner.name + " " + joiner.lastname)
+                .replace("${username}", joiner.name + " " + joiner.lastname);
+            setProfileImage(joiner.profileImage, joiner.profileImage);
         })
     }
     if (!data.response.joined) {
