@@ -1,3 +1,4 @@
+const completedMsg = '<span class="badge bg-danger me-2">FULL</span>';
 const activitySearchHtml =
     '<button type="button" class="btn w-100 p-0 m-0" data-bs-toggle="offcanvas" href="#activityScreen" onClick="openActivity(${id})">' +
     '<div class="row mx-1 my-2 p-3 border border-2 border-secondary-subtle rounded-4 bg-white text-start">' +
@@ -39,10 +40,11 @@ const activitySettingsHtml =
     '</div>' +
     '</div>';
 
-const backButtton = '<i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas"></i>';
+const backButtton = '<i class="fa fa-chevron-left me-4" data-bs-dismiss="offcanvas" onclick="reloadScreen()"></i>';
 
 const joinButton = '<button id="joinBtn" type="button" class="btn btn-lg btn-success w-50 my-3" onclick="join(${id})">JOIN</button>';
 const leaveButton = '<button type="button" class="btn btn-lg btn-danger w-50 my-3" onclick="unregister(${id})">LEAVE</button>';
+const deleteActivityButton = '<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#deleteActivityModal" onclick="activityToDelete(${activityId})">DELETE ACTIVITY</button>';
 
 const activityProfileHtml =
     '<div class="row m-0 p-1">' +
@@ -70,7 +72,7 @@ const messageTemplata =
     '<h4 class="py-1 my-0">' +
     '<div class="row align-items-center">' +
     '<div class="col text-center" style="max-width: 80px;">' +
-    '<img id="${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;">' +
+    '<img id="${profileImage}" class="rounded-circle object-fit-cover" style="height: 70px; width: 70px; max-height: 70px; max-width: 70px;" onclick="openUser(${userId})">' +
     '</div>' +
     '<div class="col text-start ms-2">' +
     '<h3 class="m-0 p-0 fw-bold">${username}</h3>' +

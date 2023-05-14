@@ -8,6 +8,7 @@ function loadConversations(data) {
             .replace("${profileImage}", message.userProfileImage)
             .replace("${conversationId}", message.conversationId)
             .replace("${userId}", message.userId)
+            .replace("${userId}", message.userId)
             .replace("${username}", message.conversationUser)
             .replace("${username}", message.conversationUser)
             .replace("${lastMessage}", message.lastMessage)
@@ -24,8 +25,14 @@ function refreshMessages() {
 
 function formatDate(dateTime) {
     const date = new Date(dateTime);
-    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return date.toLocaleString('en-GB', options);
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().substr(-2);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${dayOfWeek} ${dayOfMonth}/${month}/${year} ${hours}:${minutes}`;
 }
 
 function loadMessages(conversationId, userId, userName) {
@@ -44,7 +51,7 @@ function loadConversationMessages(data) {
         (message.flow === 'I' ?
             incomingMessageTemplate : outgoingMessageTemplate)
             .replace("${message}", message.message)
-            .replace("${date}", formatDate(message.dateTime))
+            .replace("${date}", formatMessageDate(message.dateTime))
     );
     sendGet('users/' + newMessageConversationUser, loadIncomingImage);
     sendGet('users/self', loadOutgoingImage);
@@ -54,6 +61,17 @@ function loadConversationMessages(data) {
     }
     var messageScreenBody = document.getElementById("messageScreenBody");
     messageScreenBody.scrollTo(0, messageScreenBody.scrollHeight);
+}
+
+function formatMessageDate(dateTime) {
+    const date = new Date(dateTime);
+    const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"];
+    const monthOfYear = monthsOfYear[date.getMonth() + 1];
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear().toString().substr(-2);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes} ${monthOfYear} ${dayOfMonth}, ${year}`;
 }
 
 function loadIncomingImage(data) {
@@ -98,4 +116,9 @@ function ifEnterSendMessage(e) {
     if (e.code == "Enter") {
         sendMessage();
     }
+}
+
+function openUser(userId) {
+    sessionStorage.setItem('userId', userId);
+    window.location.href = "./user.html";
 }

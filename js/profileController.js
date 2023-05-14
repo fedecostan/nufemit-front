@@ -59,11 +59,16 @@ function loadFollowers(data) {
     var followersList = document.getElementById("followersList");
     followersList.innerHTML = '';
     data.response.forEach(user => {
+        var userProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
         followersList.innerHTML += userHtml
-            .replace("${profileImage}", "follower" + user.profileImage)
+            .replace("${profileImage}", "follower" + (user.profileImage ? user.profileImage : userProvisionalId))
             .replace("${id}", user.id)
             .replace("${username}", user.name + " " + user.lastname);
-        setProfileImage(user.profileImage, "follower" + user.profileImage);
+        if (user.profileImage) {
+            setProfileImage(user.profileImage, "follower" + user.profileImage);
+        } else {
+            setProfileImage(null, "follower" + userProvisionalId);
+        }
     })
 }
 
@@ -75,11 +80,16 @@ function loadFollowing(data) {
     var followingList = document.getElementById("followingList");
     followingList.innerHTML = '';
     data.response.forEach(user => {
+        var userProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
         followingList.innerHTML += userHtml
-            .replace("${profileImage}", "following" + user.profileImage)
+            .replace("${profileImage}", "following" + (user.profileImage ? user.profileImage : userProvisionalId))
             .replace("${id}", user.id)
             .replace("${username}", user.name + " " + user.lastname);
-        setProfileImage(user.profileImage, "following" + user.profileImage);
+        if (user.profileImage) {
+            setProfileImage(user.profileImage, "following" + user.profileImage);
+        } else {
+            setProfileImage(null, "following" + userProvisionalId);
+        }
     })
 }
 
@@ -91,11 +101,16 @@ function loadUsers(data) {
     var userList = document.getElementById("userList");
     userList.innerHTML = '';
     data.response.forEach(user => {
+        var userProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
         userList.innerHTML += userHtml
-            .replace("${profileImage}", "search" + user.profileImage)
+            .replace("${profileImage}", "search" + (user.profileImage ? user.profileImage : userProvisionalId))
             .replace("${id}", user.id)
             .replace("${username}", user.name + " " + user.lastname);
-        setProfileImage(user.profileImage, "search" + user.profileImage);
+        if (user.profileImage) {
+            setProfileImage(user.profileImage, "search" + user.profileImage);
+        } else {
+            setProfileImage(null, "search" + userProvisionalId);
+        }
     })
 }
 

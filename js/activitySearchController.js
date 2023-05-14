@@ -7,7 +7,7 @@ function loadActivities(data) {
     data.response.forEach(activity => {
         var activityProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
         activityList.innerHTML += activitySearchHtml
-            .replace("${title}", activity.title)
+            .replace("${title}", activity.completed ? completedMsg + shorterText(activity.title) : shortText(activity.title))
             .replace("${activityImage}", activity.activityImage ? activity.activityImage : activityProvisionalId)
             .replace("${description}", shortText(activity.description))
             .replace("${place}", activity.place)
@@ -32,10 +32,25 @@ function shortText(text) {
     }
 }
 
+function shorterText(text) {
+    if (text.length > 13) {
+        const newStr = text.substring(0, 10) + '...';
+        return newStr;
+    } else {
+        return text;
+    }
+}
+
 function formatDate(dateTime) {
     const date = new Date(dateTime);
-    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return date.toLocaleString('en-GB', options);
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().substr(-2);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${dayOfWeek} ${dayOfMonth}/${month}/${year} ${hours}:${minutes}`;
 }
 
 function openActivity(activityId) {
@@ -82,6 +97,11 @@ function loadActivity(data) {
             document.getElementById("joinBtn").disabled = false;
         }
     }
+    document.getElementById("deleteAction").innerHTML = '';
+    if (data.response.creator.id == sessionStorage.getItem('loggedId')) {
+        document.getElementById("deleteAction").innerHTML = deleteActivityButton
+            .replace("${activityId}", data.response.id);
+    }
 }
 
 function join(activityId) {
@@ -123,6 +143,7 @@ function toggleDescription() {
     }
 }
 
+document.getElementById("dateInput").value = new Date().toISOString().slice(0, 16);
 function createActivity() {
     var title = document.getElementById("titleInput").value;
     var description = document.getElementById("descriptionInput").value;
@@ -131,6 +152,7 @@ function createActivity() {
     var price = document.getElementById("priceInput").value;
     var maxParticipants = document.getElementById("maxParticipantsInput").value;
     var activityImgId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
+    var image = document.getElementById("activityImageInput").files;
     sendPost('activities',
         {
             "title": title,
@@ -141,9 +163,14 @@ function createActivity() {
             "price": price,
             "activityImage": activityImgId
         },
-        () => compressImage(document.getElementById("activityImageInput").files[0])
-            .then(compressedImg => sendFile(compressedImg, activityImgId))
-            .then(response => sendGet('activities', loadActivities))
+        () => {
+            if (image.length > 0)
+                compressImage(image[0])
+                    .then(compressedImg => sendFile(compressedImg, activityImgId))
+                    .then(response => window.location.href = "./activitySearch.html")
+            else
+                window.location.href = "./activitySearch.html"
+        }
     )
 }
 
@@ -161,4 +188,17 @@ function openUser(userId) {
             window.location.href = "./user.html";
         }
     });
+}
+
+function reloadScreen() {
+    sendGet('activities', loadActivities);
+}
+
+var activityToDeleteId;
+function activityToDelete(id) {
+    activityToDeleteId = id;
+}
+
+function deleteActivity() {
+    sendDelete('activities/' + activityToDeleteId, () => window.location.href = "./activitySearch.html");
 }
