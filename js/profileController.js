@@ -1,6 +1,8 @@
 sendGet('users/self', loadUser);
 sendGet('activities/recent', loadRecentActivities);
 
+var loggedUser;
+
 function loadUser(data) {
     document.getElementById("profileName").innerHTML = getFullName(data.response.user);
     document.getElementById("profileLocation").innerHTML = data.response.user.location;
@@ -9,6 +11,7 @@ function loadUser(data) {
     document.getElementById("profileFollowing").innerHTML = data.response.following;
     document.getElementById("profileRatingStars").innerHTML = getStarConfiguration(data.response.rating);
     setProfileImage(data.response.user.profileImage, "profileImage");
+    loggedUser = data.response.user;
 }
 
 function getFullName(user) {
@@ -122,4 +125,36 @@ function searchUsers() {
 function openUser(userId) {
     sessionStorage.setItem('userId', userId);
     window.location.href = "./user.html";
+}
+
+function openEditUser() {
+    document.getElementById("nameInput").value = loggedUser.name;
+    document.getElementById("lastnameInput").value = loggedUser.lastname;
+    document.getElementById("secondLastnameInput").value = loggedUser.secondLastname;
+    document.getElementById("phoneInput").value = loggedUser.phone;
+    document.getElementById("locationInput").value = loggedUser.location;
+    document.getElementById("birthdateInput").value = loggedUser.birthDate;
+}
+
+function updateUser() {
+    var userChanges = {
+        "name": document.getElementById("nameInput").value,
+        "lastname": document.getElementById("lastnameInput").value,
+        "secondLastname": document.getElementById("secondLastnameInput").value,
+        "location": document.getElementById("locationInput").value,
+        "birthDate": document.getElementById("birthdateInput").value,
+        "phone": document.getElementById("phoneInput").value
+    }
+    sendPut('users', userChanges, () => window.location.href = "./profile.html")
+}
+
+function updateProfileImage() {
+    var image = document.getElementById("profileImageInput").files;
+    if (image.length > 0) {
+        var profileImgId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
+        sendPut('users/image', { "profileImage": profileImgId },
+            () => compressImage(image[0])
+                .then(compressedImg => sendFile(compressedImg, profileImgId))
+                .then(response => window.location.href = "./profile.html"))
+    }
 }

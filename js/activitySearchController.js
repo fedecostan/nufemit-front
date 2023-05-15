@@ -1,4 +1,5 @@
 sendGet('activities', loadActivities)
+sendGet('activities/next', loadNextActivity)
 
 function loadActivities(data) {
     var activityList = document.getElementById("activityList");
@@ -21,6 +22,16 @@ function loadActivities(data) {
             document.getElementById(activityProvisionalId).src = "images/default-activity.jpg";
         }
     });
+}
+
+function loadNextActivity(data) {
+    var nextActivity = document.getElementById("nextActivity");
+    nextActivity.innerHTML = '';
+    nextActivity.innerHTML += nextActivityHtml
+        .replace("${title}", data.response.completed ? completedMsg + shorterText(data.response.title) : shortText(data.response.title))
+        .replace("${place}", data.response.place)
+        .replace("${dateTime}", formatNextDate(data.response.dateTime))
+        .replace("${id}", data.response.id);
 }
 
 function shortText(text) {
@@ -51,6 +62,15 @@ function formatDate(dateTime) {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${dayOfWeek} ${dayOfMonth}/${month}/${year} ${hours}:${minutes}`;
+}
+
+function formatNextDate(dateTime) {
+    const date = new Date(dateTime);
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${dayOfMonth}/${month} ${hours}:${minutes}`;
 }
 
 function openActivity(activityId) {
@@ -191,7 +211,8 @@ function openUser(userId) {
 }
 
 function reloadScreen() {
-    sendGet('activities', loadActivities);
+    sendGet('activities', loadActivities)
+    sendGet('activities/next', loadNextActivity)
 }
 
 var activityToDeleteId;

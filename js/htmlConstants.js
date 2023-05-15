@@ -14,6 +14,17 @@ const activitySearchHtml =
     '</div>' +
     '</button>';
 
+const nextActivityHtml =
+    '<button type="button" class="btn w-100 p-0 m-0 mt-2" data-bs-toggle="offcanvas" href="#activityScreen" onClick="openActivity(${id})">' +
+    '<div class="py-2 px-3 text-start">' +
+    '<h5 class"text-start">Your next activity:</h5>' +
+    '</div>' +
+    '<div class="py-2 px-3 mx-1 rounded-2 bg-dark-subtle text-start">' +
+    '<h6>${title} - ${dateTime}</h6>' +
+    '</div>' +
+    '</div>' +
+    '</button>';
+
 const userHtml =
     '<button type="button" class="btn w-100 p-0 m-0" onClick="openUser(${id})">' +
     '<div class="row align-items-center">' +
@@ -68,7 +79,7 @@ const unreadMessage =
     '<i class="fa fa-circle text-danger"></i>' +
     '</div>';
 const messageTemplata =
-    '<button class="btn w-100" data-bs-toggle="offcanvas" href="#messageScreen" onClick="loadMessages(${conversationId}, ${userId}, \'${username}\')">' +
+    '<button class="btn w-100" data-bs-toggle="offcanvas" href="#messageScreen" onclick="loadMessages(${conversationId}, ${userId}, \'${username}\')">' +
     '<h4 class="py-1 my-0">' +
     '<div class="row align-items-center">' +
     '<div class="col text-center" style="max-width: 80px;">' +

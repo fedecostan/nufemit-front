@@ -21,8 +21,15 @@
 
         <!--Main content-->
         <div class="text-center">
-            <img id="profileImage" class="rounded-circle object-fit-cover w-100 mt-2"
-                style="height: 150px; width: 150px; max-height: 150px; max-width: 150px;">
+            <div class="position-relative">
+                <img id="profileImage" class="rounded-circle object-fit-cover w-100 mt-2"
+                    style="height: 150px; width: 150px; max-height: 150px; max-width: 150px;">
+                <button type="button"
+                    class="btn btn-secondary position-absolute top-100 start-50 translate-middle badge ms-5"
+                    data-bs-toggle="modal" data-bs-target="#changeImageModal">
+                    <i class="fa fa-camera fa-2x"></i>
+                </button>
+            </div>
             <h2 class="my-3" id="profileName"></h2>
             <h5 class="text-secondary fw-light" id="profileLocation"></h5>
             <div class="container-sm text-warning fs-2" id="profileRatingStars"></div>
@@ -43,11 +50,9 @@
                 </div>
             </div>
             <div class="container m-0 p-0">
-                <button type="button" class="btn btn-secondary me-3 position-relative" data-bs-toggle="modal"
-                    data-bs-target="#editUserModal" disabled>
+                <button type="button" class="btn btn-secondary me-3" data-bs-toggle="modal"
+                    data-bs-target="#editUserModal" onclick="openEditUser()">
                     <i class="fa fa-pencil"></i>
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">SOON</span>
                 </button>
                 <button type="button" class="btn btn-dark ms-3" data-bs-toggle="modal" data-bs-target="#searchUserModal"
                     onclick="openSearchUser()">Search users <i class="fa fa-search"></i></button>
@@ -61,14 +66,6 @@
         <div class="container text-center py-2 px-3 fixed-bottom"
             style="background-color: whitesmoke; max-width: 1000px;">
             <div class="row">
-                <div class="col p-0">
-                    <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0 position-relative"
-                        id="homeScreen" disabled>
-                        <i class="fa fa-home fa-2x"></i><br>Home
-                        <span
-                            class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger">SOON</span>
-                    </button>
-                </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-sm btn-outline-dark w-100 border border-0"
                         id="activitySearchScreen">
@@ -157,7 +154,70 @@
         </div>
 
         <!--Edit User modal-->
-        <!--TBD-->
+        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editUserModalLabel">Edit User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nameInput" placeholder=" ">
+                            <label for="nameInput">Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lastnameInput" placeholder=" ">
+                            <label for="lastnameInput">Lastname</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="secondLastnameInput" placeholder=" ">
+                            <label for="secondLastnameInput">Second Lastname</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="phoneInput" placeholder=" ">
+                            <label for="phoneInput">Phone</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="locationInput" placeholder=" ">
+                            <label for="locationInput">Location</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="birthdateInput" placeholder=" ">
+                            <label for="birthdateInput">Birthdate</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="updateUser()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Change Image modal-->
+        <div class="modal fade" id="changeImageModal" tabindex="-1" aria-labelledby="changeImageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="changeImageModalLabel">Change profile image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="profileImageInput">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="updateProfileImage()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="lib/bootstrap.bundle.min.js"></script>
