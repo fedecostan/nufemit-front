@@ -29,7 +29,6 @@
 
         <!--Main content-->
         <div id="nextActivity"></div>
-        <hr class="mb-0 mt-2">
         <div id="activityList" class="text-center" style="padding-bottom: 74px;"></div>
 
         <!--Navbar-->
@@ -151,24 +150,25 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-danger" role="alert" id="alert"></div>
                         <div class="form-floating mb-1">
                             <input type="text" class="form-control" id="titleInput" placeholder=" ">
-                            <label for="titleInput">Title</label>
+                            <label for="titleInput"><span class="me-1 text-danger fw-bolder">*</span>Title</label>
                         </div>
                         <div class="mb-1">
-                            <textarea class="form-control" placeholder=" " id="descriptionInput"
+                            <textarea class="form-control" placeholder="Description" id="descriptionInput"
                                 style="height: 100px"></textarea>
                         </div>
                         <div class="form-floating mb-1">
                             <input type="text" class="form-control" id="placeInput" placeholder=" ">
-                            <label for="placeInput">Place</label>
+                            <label for="placeInput"><span class="me-1 text-danger fw-bolder">*</span>Place</label>
                         </div>
                         <div class="form-floating mb-1">
                             <input type="datetime-local" class="form-control" id="dateInput" placeholder=" ">
-                            <label for="dateInput">Date</label>
+                            <label for="dateInput"><span class="me-1 text-danger fw-bolder">*</span>Date</label>
                         </div>
                         <div class="form-floating mb-1">
-                            <input type="number" class="form-control" id="priceInput" placeholder=" ">
+                            <input type="number" class="form-control" id="priceInput" placeholder=" " value="0">
                             <label for="priceInput">Price</label>
                         </div>
                         <div class="form-floating mb-1">
@@ -182,8 +182,8 @@
                         </div>
                         <div class="row">
                             <div class="col-8">
-                                <button type="button" class="btn btn-primary btn-lg w-100 mb-3" id="createActivityBtn"
-                                    data-bs-dismiss="modal" onclick="createActivity()">Create</button>
+                                <button type="button" class="btn btn-primary btn-lg w-100 mb-3"
+                                    onclick="createActivity()">Create</button>
                             </div>
                             <div class="col-4">
                                 <button type="button" class="btn btn-danger btn-lg w-100 mb-3"

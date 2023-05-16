@@ -49,7 +49,7 @@
                     <p class="m-0">Following</p>
                 </div>
             </div>
-            <div class="container m-0 p-0">
+            <div class="container-fluid m-0 p-0">
                 <button type="button" class="btn btn-secondary me-3" data-bs-toggle="modal"
                     data-bs-target="#editUserModal" onclick="openEditUser()">
                     <i class="fa fa-pencil"></i>
@@ -163,13 +163,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-danger" role="alert" id="alert"></div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="nameInput" placeholder=" ">
-                            <label for="nameInput">Name</label>
+                            <label for="nameInput"><span class="me-1 text-danger fw-bolder">*</span>Name</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="lastnameInput" placeholder=" ">
-                            <label for="lastnameInput">Lastname</label>
+                            <label for="lastnameInput"><span class="me-1 text-danger fw-bolder">*</span>Lastname</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="secondLastnameInput" placeholder=" ">
@@ -190,8 +191,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            onclick="updateUser()">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="updateUser()">Save</button>
                     </div>
                 </div>
             </div>
@@ -210,8 +210,11 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="profileImageInput">
                         </div>
+                        <p>* Images may take some minutes to be updated</p>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            onclick="deleteProfileImage()">Delete current image</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             onclick="updateProfileImage()">Save</button>
                     </div>

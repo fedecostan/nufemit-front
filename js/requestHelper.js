@@ -1,7 +1,7 @@
 const BACK_URL = 'https://app-nufemit-back.herokuapp.com/';
 //const BACK_URL = 'http://localhost:8080/';
 
-function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
+function sendPostNoAuthorization(path, body, successHandle, errorHandle) {
     fetch(BACK_URL + path, {
         method: 'POST',
         headers: {
@@ -10,8 +10,10 @@ function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
         body: JSON.stringify(body)
     })
         .then(response => {
-            if (!response.ok) {
+            if (response.status == 401) {
                 errorHandle();
+            } else if (response.status == 412) {
+                throw response;
             }
             return response.json();
         })
@@ -20,26 +22,30 @@ function sendPostNoAuthorization(path, body, errorHandle, successHandle) {
             sessionStorage.setItem('loggedId', data.loggedId);
             successHandle();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(errorBody => {
+            try {
+                errorBody.json().then(errorMessage => errorHandle(errorMessage));
+            } catch (error) {}
+        });
 }
 
-function sendPost(path, body, successHandle) {
-    sendRequest(path, body, successHandle, 'POST')
+function sendPost(path, body, successHandle, errorHandle) {
+    sendRequest(path, body, successHandle, errorHandle ? errorHandle : null, 'POST')
 }
 
-function sendPut(path, body, successHandle) {
-    sendRequest(path, body, successHandle, 'PUT')
+function sendPut(path, body, successHandle, errorHandle) {
+    sendRequest(path, body, successHandle, errorHandle ? errorHandle : null, 'PUT')
 }
 
-function sendGet(path, successHandle) {
-    sendRequest(path, null, successHandle, 'GET')
+function sendGet(path, successHandle, errorHandle) {
+    sendRequest(path, null, successHandle, errorHandle ? errorHandle : null, 'GET')
 }
 
-function sendDelete(path, successHandle) {
-    sendRequest(path, null, successHandle, 'DELETE')
+function sendDelete(path, successHandle, errorHandle) {
+    sendRequest(path, null, successHandle, errorHandle ? errorHandle : null, 'DELETE')
 }
 
-function sendRequest(path, body, successHandle, method) {
+function sendRequest(path, body, successHandle, errorHandle, method) {
     fetch(BACK_URL + path, {
         method: method,
         headers: {
@@ -51,6 +57,8 @@ function sendRequest(path, body, successHandle, method) {
         .then(response => {
             if (response.status == 401) {
                 window.location.href = "./login.html";
+            } else if (response.status == 412) {
+                throw response;
             }
             return response.json();
         })
@@ -59,7 +67,11 @@ function sendRequest(path, body, successHandle, method) {
             sessionStorage.setItem('loggedId', data.loggedId);
             successHandle(data);
         })
-        .catch(error => console.error('Error:', error));
+        .catch(errorBody => {
+            try {
+                errorBody.json().then(errorMessage => errorHandle(errorMessage));
+            } catch (error) {}
+        });
 }
 
 function fetchFile(fileName, successFetchFile, errorHandler) {

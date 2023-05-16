@@ -32,6 +32,7 @@ function loadNextActivity(data) {
         .replace("${place}", data.response.place)
         .replace("${dateTime}", formatNextDate(data.response.dateTime))
         .replace("${id}", data.response.id);
+        nextActivity.innerHTML += SEPARATOR;
 }
 
 function shortText(text) {
@@ -83,7 +84,7 @@ function loadActivity(data) {
     document.getElementById("place").value = data.response.place;
     document.getElementById("time").value = formatDate(data.response.dateTime);
     document.getElementById("price").value = data.response.price;
-    document.getElementById("registered").innerHTML = data.response.joiners.length + "/" + data.response.limit;
+    document.getElementById("registered").innerHTML = data.response.joiners.length + "/" + (data.response.limit > 9999 ? "NO LIMIT" : data.response.limit);
     if (data.response.activityImage) {
         fetchFile(data.response.activityImage,
             image => document.getElementById("activityImage").src = image,
@@ -163,8 +164,11 @@ function toggleDescription() {
     }
 }
 
-document.getElementById("dateInput").value = new Date().toISOString().slice(0, 16);
+const INVALID = "is-invalid";
+resetInputs();
+document.getElementById("dateInput").value = datetimeLocal();
 function createActivity() {
+    resetInputs();
     var title = document.getElementById("titleInput").value;
     var description = document.getElementById("descriptionInput").value;
     var place = document.getElementById("placeInput").value;
@@ -181,7 +185,7 @@ function createActivity() {
             "dateTime": date,
             "maxParticipants": maxParticipants,
             "price": price,
-            "activityImage": activityImgId
+            "activityImage": image.length > 0 ? activityImgId : null
         },
         () => {
             if (image.length > 0)
@@ -190,8 +194,15 @@ function createActivity() {
                     .then(response => window.location.href = "./activitySearch.html")
             else
                 window.location.href = "./activitySearch.html"
-        }
+        },
+        showInvalidFields
     )
+}
+
+function datetimeLocal() {
+    const dt = new Date();
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+    return dt.toISOString().slice(0, 16);
 }
 
 function searchActivities() {
@@ -222,4 +233,25 @@ function activityToDelete(id) {
 
 function deleteActivity() {
     sendDelete('activities/' + activityToDeleteId, () => window.location.href = "./activitySearch.html");
+}
+
+function showInvalidFields(data) {
+    showAlert("Fields marked are not properly completed<br>" + data.response.reason);
+    data.response.erroredFields.forEach(erroredField => {
+        if (erroredField === "TITLE") document.getElementById("titleInput").classList.add(INVALID);
+        if (erroredField === "PLACE") document.getElementById("placeInput").classList.add(INVALID);
+        if (erroredField === "DATE") document.getElementById("dateInput").classList.add(INVALID);
+    });
+}
+
+function resetInputs() {
+    document.getElementById("alert").style.display = "none";
+    document.getElementById("titleInput").classList.remove(INVALID);
+    document.getElementById("placeInput").classList.remove(INVALID);
+    document.getElementById("dateInput").classList.remove(INVALID);
+}
+
+function showAlert(msg) {
+    document.getElementById("alert").innerHTML = msg;
+    document.getElementById("alert").style.display = "block";
 }

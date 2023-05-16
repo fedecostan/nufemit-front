@@ -68,6 +68,8 @@ const activityProfileHtml =
     '</div>' +
     '</div>';
 
+const SEPARATOR = '<hr class="mb-0 mt-2">';
+
 const FULL_STAR = '<i class="fa fa-star"></i>';
 const HALF_STAR = '<i class="fa fa-star-half-o"></i>';
 const EMPT_STAR = '<i class="fa fa-star-o"></i>';

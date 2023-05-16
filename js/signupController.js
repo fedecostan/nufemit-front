@@ -11,72 +11,47 @@ var locationInput = document.getElementById("locationInput");
 var birthDateInput = document.getElementById("birthdateInput");
 
 function signup() {
+    resetInputs();
     var profileImgId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
-    if (inputsValid()) {
-        var newUser = {
-            "name": nameInput.value,
-            "lastname": lastnameInput.value,
-            "secondLastname": secondLastnameInput.value,
-            "location": locationInput.value,
-            "birthDate": birthDateInput.value,
-            "email": emailInput.value,
-            "password": passwordInput.value,
-            "phone": phoneInput.value,
-            "profileImage": profileImgId
-        }
-        sendPostNoAuthorization('users', newUser,
-            () => showAlert("ERROR TRY AGAIN"),
-            () => compressImage(document.getElementById("profileImageInput").files[0])
-                .then(compressedImg => sendFile(compressedImg, profileImgId))
-                .then(response => window.location.href = "./login.html")
-        );
+    var image = document.getElementById("profileImageInput").files;
+    var newUser = {
+        "name": nameInput.value,
+        "lastname": lastnameInput.value,
+        "secondLastname": secondLastnameInput.value,
+        "location": locationInput.value,
+        "birthDate": birthDateInput.value,
+        "email": emailInput.value,
+        "password": passwordInput.value,
+        "phone": phoneInput.value,
+        "profileImage": image.length > 0 ? profileImgId : null
     }
+    sendPostNoAuthorization('users', newUser,
+        () => {
+            if (image.length > 0) {
+                compressImage(image[0])
+                    .then(compressedImg => sendFile(compressedImg, profileImgId))
+                    .then(response => window.location.href = "./login.html");
+            } else {
+                window.location.href = "./login.html";
+            }
+        },
+        showInvalidFields
+    );
 }
 
-function inputsValid() {
-    resetValidations();
-    var errorMsg = "";
-    if (emailInput.value.length < 5) {
-        emailInput.classList.add(INVALID)
-        errorMsg += "Invalid email<br>"
-    }
-    if (passwordInput.value.length < 8) {
-        passwordInput.classList.add(INVALID)
-        errorMsg += "Invalid password<br>"
-    }
-    if (nameInput.value.length < 1) {
-        nameInput.classList.add(INVALID)
-        errorMsg += "Invalid name<br>"
-    }
-    if (lastnameInput.value.length < 1) {
-        lastnameInput.classList.add(INVALID)
-        errorMsg += "Invalid lastname<br>"
-    }
-    if (secondLastnameInput.value.length < 1) {
-        secondLastnameInput.classList.add(INVALID)
-        errorMsg += "Invalid second lastname<br>"
-    }
-    if (phoneInput.value.length < 1) {
-        phoneInput.classList.add(INVALID)
-        errorMsg += "Invalid phone<br>"
-    }
-    if (locationInput.value.length < 1) {
-        locationInput.classList.add(INVALID)
-        errorMsg += "Invalid location<br>"
-    }
-    if (birthDateInput.value.length < 1) {
-        birthDateInput.classList.add(INVALID)
-        errorMsg += "Invalid birthdate<br>"
-    }
-    if (errorMsg.length == 0) {
-        return true;
-    }
-    showAlert(errorMsg);
-    return false;
+function showInvalidFields(data) {
+    showAlert("Fields marked are not properly completed<br>" + data.reason);
+    data.erroredFields.forEach(erroredField => {
+        if (erroredField === "EMAIL") emailInput.classList.add(INVALID)
+        if (erroredField === "PASSWORD") passwordInput.classList.add(INVALID)
+        if (erroredField === "NAME") nameInput.classList.add(INVALID)
+        if (erroredField === "LASTNAME") lastnameInput.classList.add(INVALID)
+    });
 }
 
-function resetValidations() {
-    emailInput.classList.remove(INVALID)
+function resetInputs() {
+    document.getElementById("alert").style.display = "none";
+    emailInput.classList.remove(INVALID);
     passwordInput.classList.remove(INVALID)
     nameInput.classList.remove(INVALID)
     lastnameInput.classList.remove(INVALID)

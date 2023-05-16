@@ -123,8 +123,12 @@ function searchUsers() {
 }
 
 function openUser(userId) {
-    sessionStorage.setItem('userId', userId);
-    window.location.href = "./user.html";
+    if (userId != sessionStorage.getItem('loggedId')) {
+        sessionStorage.setItem('userId', userId);
+        window.location.href = "./user.html";
+    } else {
+        window.location.href = "./profile.html";
+    }
 }
 
 function openEditUser() {
@@ -136,7 +140,10 @@ function openEditUser() {
     document.getElementById("birthdateInput").value = loggedUser.birthDate;
 }
 
+const INVALID = "is-invalid";
+resetInputs();
 function updateUser() {
+    resetInputs();
     var userChanges = {
         "name": document.getElementById("nameInput").value,
         "lastname": document.getElementById("lastnameInput").value,
@@ -145,7 +152,9 @@ function updateUser() {
         "birthDate": document.getElementById("birthdateInput").value,
         "phone": document.getElementById("phoneInput").value
     }
-    sendPut('users', userChanges, () => window.location.href = "./profile.html")
+    sendPut('users', userChanges,
+        () => window.location.href = "./profile.html",
+        showInvalidFields)
 }
 
 function updateProfileImage() {
@@ -155,6 +164,31 @@ function updateProfileImage() {
         sendPut('users/image', { "profileImage": profileImgId },
             () => compressImage(image[0])
                 .then(compressedImg => sendFile(compressedImg, profileImgId))
-                .then(response => window.location.href = "./profile.html"))
+                .then(response => window.location.href = "./profile.html")
+        )
     }
+}
+
+function deleteProfileImage() {
+    sendPut('users/image', { "profileImage": null },
+        () => window.location.href = "./profile.html")
+}
+
+function showInvalidFields(data) {
+    showAlert("Fields marked are not properly completed<br>" + data.response.reason);
+    data.response.erroredFields.forEach(erroredField => {
+        if (erroredField === "NAME") document.getElementById("nameInput").classList.add(INVALID);
+        if (erroredField === "LASTNAME") document.getElementById("lastnameInput").classList.add(INVALID);
+    });
+}
+
+function resetInputs() {
+    document.getElementById("alert").style.display = "none";
+    document.getElementById("nameInput").classList.remove(INVALID);
+    document.getElementById("lastnameInput").classList.remove(INVALID);
+}
+
+function showAlert(msg) {
+    document.getElementById("alert").innerHTML = msg;
+    document.getElementById("alert").style.display = "block";
 }

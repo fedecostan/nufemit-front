@@ -19,8 +19,8 @@ function login() {
     sendPostNoAuthorization(
         'users/login',
         {"email":email, "password":password},
-        () => document.getElementById("loginErrorMsg").style.display = "block",
-        () => window.location.href = "./activitySearch.html");
+        () => window.location.href = "./activitySearch.html",
+        () => document.getElementById("loginErrorMsg").style.display = "block");
 }
 
 function recoverPassword() {

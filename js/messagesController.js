@@ -4,8 +4,9 @@ function loadConversations(data) {
     var allMessages = document.getElementById("allMessages");
     allMessages.innerHTML = '';
     data.response.forEach(message => {
+        var userProvisionalId = String(Date.now()) + String(Math.floor(Math.random() * 900) + 100);
         allMessages.innerHTML += messageTemplata
-            .replace("${profileImage}", message.userProfileImage)
+            .replace("${profileImage}", message.userProfileImage ? message.userProfileImage : userProvisionalId)
             .replace("${conversationId}", message.conversationId)
             .replace("${userId}", message.userId)
             .replace("${userId}", message.userId)
@@ -14,7 +15,11 @@ function loadConversations(data) {
             .replace("${lastMessage}", message.lastMessage)
             .replace("${date}", formatDate(message.date))
             .replace("${unread}", message.unread ? unreadMessage : '');
-        setProfileImage(message.userProfileImage, message.userProfileImage);
+        if (message.userProfileImage) {
+            setProfileImage(message.userProfileImage, message.userProfileImage);
+        } else {
+            setProfileImage(null, userProvisionalId);
+        }
     }
     );
 }
