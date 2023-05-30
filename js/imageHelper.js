@@ -7,7 +7,7 @@ function compressImage(file) {
       let width = image.width;
       let height = image.height;
       let quality = 0.7;
-      let scaleFactor = Math.sqrt(51200 / file.size);
+      let scaleFactor = Math.sqrt(46080 / file.size);
       canvas.width = width * scaleFactor;
       canvas.height = height * scaleFactor;
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
